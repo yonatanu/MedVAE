@@ -3,9 +3,9 @@
 
 This repository contains the official PyTorch implementation for MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders.
 
-![Overview](assets/overview.png "")
-
 [🤗 Hugging Face](https://huggingface.co/ashwinkumargb/MedVAE)
+
+![Overview](assets/overview.png "")
 
 ## 🫁 What is MedVAE?
 
@@ -19,9 +19,9 @@ cd medvae
 pip install -e .
 ```
 
-## Usage Instruction
+## 🚀 Usage Instruction
 
-We allow for easy-to-use CLI inference tool for medical image compression
+We allow for easy-to-use CLI inference tool for compressing your high-dimensional medical images into usable latents:
 
 ```python
 medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -modality MODALITY
@@ -37,7 +37,7 @@ If you find this repository useful for your work, please cite the cite the origi
   year = {2025},
   publisher = {Github},
   journal = {Github},
-  howpublished = {[Github](https://github.com/StanfordMIMI/MedVAE)}
+  howpublished = {https://github.com/StanfordMIMI/MedVAE}
 }
 ```
 
