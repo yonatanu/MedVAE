@@ -32,7 +32,7 @@ If you find this repository useful for your work, please cite the cite the origi
 
 ```bibtex
 @article{varma2025medvae,
-  title = {Med-VAE},
+  title = {MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders},
   author = {Maya Varma, Ashwin Kumar, Rogier van der Sluijs, Sophie Ostmeier, Louis Blankemeier, Pierre Chambon, Christian Bluethgen, Jip Prince, Curtis Langlotz, Akshay Chaudhari},
   year = {2025},
   publisher = {Github},
