@@ -8,7 +8,6 @@ from monai.transforms import (
     CropForeground,
     ScaleIntensityRange,
 )
-from compress.utils.transforms import Expand
 import torch
 import torch.nn.functional as F
 from monai.transforms import Transform

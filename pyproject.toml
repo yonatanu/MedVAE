@@ -1,6 +1,6 @@
 [project]
 name = "medvae"
-version = "0.0.4"
+version = "0.0.5"
 requires-python = ">=3.9"
 description = "MedVAE is a family of six medical image autoencoders that can encode high-dimensional medical images into latent representations."
 readme = "README.md"
@@ -55,7 +55,8 @@ dependencies = [
     "yacs",
     "batchgeneratorsv2>=0.2",
     "einops>=0.8.0",
-    "monai>=1.3.2"
+    "monai>=1.3.2",
+    "torchvision>=0.19.1"
 ]
 
 [project.urls]
