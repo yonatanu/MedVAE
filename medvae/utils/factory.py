@@ -1,7 +1,7 @@
 from huggingface_hub import hf_hub_download
 from medvae.models import AutoencoderKL_2D, AutoencoderKL_3D
 from omegaconf import OmegaConf
-from lora_diffusion import inject_trainable_lora_extended
+from medvae.utils.lora import inject_trainable_lora_extended
 from medvae.utils.loaders import load_mri_3d, load_ct_3d, load_2d
 import torch
 

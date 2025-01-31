@@ -1,8 +1,8 @@
 [project]
 name = "medvae"
-version = "0.0.1"
+version = "0.0.2"
 requires-python = ">=3.9"
-description = "Med-VAE is a family of six medical image autoencoders that can compress high-dimension images into latent representation."
+description = "Med-VAE is a family of six medical image autoencoders that can encode high-dimensional medical images into latent representation."
 readme = "README.md"
 license = { file = "LICENSE" }
 authors = [
@@ -46,7 +46,6 @@ dependencies = [
     "scikit-image>=0.19.3",
     "SimpleITK>=2.4.0",
     "omegaconf>=2.3.0",
-    "lora_diffusion@git+https://github.com/cloneofsimo/lora.git",
     "pandas",
     'requests',
     "nibabel",
@@ -64,15 +63,21 @@ homepage = "https://github.com/StanfordMIMI/MedVAE"
 repository = "https://github.com/StanfordMIMI/MedVAE"
 
 [project.scripts]
-medvae_inference = "scripts.medvae_inference:main"
+medvae_inference = "medvae.medvae_inference:main"
 
+[project.optional-dependencies]
+dev = [
+    "black",
+    "ruff",
+    "pre-commit"
+]
 
 [build-system]
 requires = ["setuptools>=67.8.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
-include = ["medvae", "scripts"]
+include = ["medvae"]
 exclude = ["assets", "documentation"]
 
 [tool.codespell]

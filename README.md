@@ -12,11 +12,18 @@ This repository contains the official PyTorch implementation for MedVAE: Efficie
 MedVAE is a family of six large-scale, generalizable 2D and 3D variational autoencoders (VAEs) designed for medical imaging. It is trained on over one million medical images across multiple anatomical regions and modalities. MedVAE autoencoders encode medical images as downsized latent representations and decode latent representations back to high-resolution images. Across diverse tasks obtained from 20 medical image datasets, we demonstrate that utilizing MedVAE latent representations in place of high-resolution images when training downstream models can lead to efficiency benefits (up to 70x improvement in throughput) while simultaneously preserving clinically-relevant features.
 
 ## ⚡️ Installation
-Use the following commands to clone and install this repository.
+
+To install MedVAE, you can simply run:
+
+```python
+pip install medvae
+```
+
+For an editable installation, use the following commands to clone and install this repository.
 ```python
 git clone https://github.com/StanfordMIMI/MedVAE.git
 cd medvae
-pip install -e .
+pip install -e .[dev]
 ```
 
 ## 🚀 Usage Instruction
