@@ -26,7 +26,7 @@ def download_model_weights(hfpath):
 ''' 
 Build the Med-VAE models for inference using the model weights
 '''
-def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, device: torch.device):
+def build_model(model_name: str, config_fpath: str, ckpt_fpath: str):
     
     if model_name == 'medvae_4_1_2d' or model_name == 'medvae_8_1_2d':
         conf  = OmegaConf.load(config_fpath)
@@ -35,9 +35,6 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, device: tor
                 embed_dim=conf.embed_dim,
                 ckpt_path=ckpt_fpath,
         )
-        model.requires_grad_(False)
-        model.to(device)
-        model.eval()
     elif model_name == 'medvae_4_3_2d' or model_name == 'medvae_8_4_2d':
         conf  = OmegaConf.load(config_fpath)
         model = AutoencoderKL_2D(
@@ -46,9 +43,6 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, device: tor
         )
         _, _ = inject_trainable_lora_extended(model, {"ResnetBlock", "AttnBlock"}, r=4)
         model.init_from_ckpt(ckpt_fpath)
-        model.to(device)
-        model.requires_grad_(False)
-        model.eval()
     elif model_name == 'medvae_4_1_3d' or model_name == 'medvae_8_1_3d':
         
         conf  = OmegaConf.load(config_fpath)
@@ -57,9 +51,6 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, device: tor
                 embed_dim=conf.embed_dim,
         )
         model.init_from_ckpt(ckpt_fpath, state_dict=True)
-        model.to(device)
-        model.requires_grad_(False)
-        model.eval()
     
     return model
 
@@ -81,7 +72,6 @@ def build_transform(model_name: str, modality: str):
 def create_model_and_transform(
     model_name: str,
     modality: str,
-    device: torch.device
 ):
     # Check if model_name is in FILE_DICT_ASSOCIATIONS
     if model_name not in FILE_DICT_ASSOCIATIONS:
@@ -92,7 +82,7 @@ def create_model_and_transform(
     ckpt_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]['ckpt'])
     
     # Build the model
-    model = build_model(model_name, config_fpath, ckpt_fpath, device)
+    model = build_model(model_name, config_fpath, ckpt_fpath)
     
     # Get the transform
     transform = build_transform(model_name, modality)

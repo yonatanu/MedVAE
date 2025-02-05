@@ -67,7 +67,7 @@ def load_2d(path: str, merge_channels: bool = False, dtype: torch.dtype = torch.
         return img
     except Exception as e:
         print(f"Error in loading {path} with error: {e}")
-        return torch.zeros((1, 384, 384)), torch.zeros((1, 384, 384))
+        return torch.zeros((1, 384, 384))
 
 
 """

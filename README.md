@@ -1,11 +1,9 @@
 # MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders
-[![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
+[![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)&nbsp;&nbsp;&nbsp;&nbsp;[![pypi](https://img.shields.io/pypi/v/medvae?style=for-the-badge)](https://pypi.org/project/medvae/)&nbsp;&nbsp;&nbsp;&nbsp;[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=000)](https://huggingface.co/ashwinkumargb/MedVAE)
 
 This repository contains the official PyTorch implementation for MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders.
 
-[[🤗 Hugging Face](https://huggingface.co/ashwinkumargb/MedVAE)]
-
-![Overview](assets/overview.png "")
+![Overview](documentation/assets/overview.png)
 
 ## 🫁 What is MedVAE?
 
@@ -26,13 +24,33 @@ cd medvae
 pip install -e .[dev]
 ```
 
-## 🚀 Usage Instruction
+## 🚀 Usage Instructions
 
-We allow for easy-to-use CLI inference tool for compressing your high-dimensional medical images into usable latents:
+```python
+import torch
+from medvae import MVAE
+
+fpath = "documentation/data/mmg_data/isJV8hQ2hhJsvEP5rdQNiy.png"
+device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+
+model = MVAE(model_name='medvae_4_3_2d', modality='xray').to(device)
+img = model.apply_transform(fpath).to(device)
+
+model.requires_grad_(False)
+model.eval()
+
+with torch.no_grad():
+  latent = model(img)
+
+```
+
+We also allow for easy-to-use CLI inference tool for compressing your high-dimensional medical images into usable latents:
 
 ```python
 medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -modality MODALITY
 ```
+
+For more information, please check our [inference documentation](/documentation/inference.md) and [demo](documentation/demo.ipynb).
 
 ## 📎 Citation
 If you find this repository useful for your work, please cite the cite the original paper:

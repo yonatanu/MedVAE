@@ -1,15 +1,13 @@
-import argparse, textwrap
+import argparse
 from genericpath import isdir
-from medvae.utils.extras import create_directory, cite_function, roi_size_calc
-from medvae.utils.factory import create_model_and_transform
+from medvae.utils.extras import create_directory, cite_function
 import torch
 import nibabel as nib
 import os
 from tqdm import tqdm
 import numpy as np
 from os.path import join as pjoin
-from monai.inferers import sliding_window_inference
-
+from medvae import MVAE
 
 def parse_arguments():
     parser = argparse.ArgumentParser(description='Use this to run inference with Med-VAE. This function is used when '
@@ -76,48 +74,22 @@ def parse_arguments():
     
     return args, device
 
-''' 
-Inference function to take in a file path and model and return the latent
-'''
-def model_inference(fpath : str, model, transform, **kwargs):
-    # Unpack the arguments
-    model_name = kwargs.get('model_name')
-    gpu_dim = kwargs.get('roi_size')
-    device = kwargs.get('device')
-    
-    if '3d' in model_name:
-        # Then just run inference on the patch
-        def predict_latent(patch):
-            with torch.no_grad():
-                z, _, _ = model(patch, decode=False)
-                return z
-            
-        img = transform(fpath).unsqueeze(0).to(device)
-        
-        roi_size = roi_size_calc(img.shape[-3:], target_gpu_dim=gpu_dim)
-        rec = sliding_window_inference(inputs=img, roi_size=roi_size, sw_batch_size=1, mode="gaussian", predictor=predict_latent)
-        latent = rec.squeeze().squeeze().detach().cpu().numpy()
-    elif '2d' in model_name:
-        img = transform(fpath, merge_channels='1_2d' in model_name).unsqueeze(0).to(device)
-        
-        with torch.no_grad():
-            _, _, latent = model(img, decode=False)
-        latent = latent.squeeze().squeeze().detach().cpu().numpy()
-
-    return latent
-
 def __init__():
 
     args, device = parse_arguments()
     
     # Build the model and transform
-    model, transform = create_model_and_transform(args.model_name, args.modality, device)
-    
+    model = MVAE(args.model_name, args.modality, args.roi_size).to(device)
+    model.requires_grad_(False)
+    model.eval()
+        
     # Run inference on the input folder
     print("Running inference at {}".format(args.i))
     for fpath in tqdm(os.listdir(args.i), total = len(os.listdir(args.i))):
-        latent = model_inference(pjoin(args.i, fpath), model, transform, **vars(args))
         
+        img = model.apply_transform(pjoin(args.i, fpath)).to(device)
+        latent = model(img).detach().cpu().numpy()
+                
         # Save the latent
         nib.save(nib.Nifti1Image(latent, np.eye(4)), pjoin(args.o, fpath.split('.')[0] + ".nii.gz"))
     

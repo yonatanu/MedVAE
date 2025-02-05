@@ -1,6 +1,6 @@
 [project]
 name = "medvae"
-version = "0.0.5"
+version = "0.0.6"
 requires-python = ">=3.9"
 description = "MedVAE is a family of six medical image autoencoders that can encode high-dimensional medical images into latent representations."
 readme = "README.md"
@@ -56,7 +56,9 @@ dependencies = [
     "batchgeneratorsv2>=0.2",
     "einops>=0.8.0",
     "monai>=1.3.2",
-    "torchvision>=0.19.1"
+    "torchvision>=0.19.1",
+    "gdown",
+    "nilearn"
 ]
 
 [project.urls]
@@ -79,7 +81,7 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
 include = ["medvae", "medvae.utils", "medvae.models", "medvae.utils.vae"]
-exclude = ["assets", "documentation"]
+exclude = ["documentation"]
 
 [tool.codespell]
 skip = '.git,*.pdf,*.svg, *.png'
