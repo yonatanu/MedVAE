@@ -44,7 +44,7 @@ with torch.no_grad():
 
 ```
 
-We also allow for easy-to-use CLI inference tool for compressing your high-dimensional medical images into usable latents:
+We also developed an easy-to-use CLI inference tool for compressing your high-dimensional medical images into usable latents:
 
 ```python
 medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -modality MODALITY
