@@ -10,8 +10,8 @@ from os.path import join as pjoin
 from medvae import MVAE
 
 def parse_arguments():
-    parser = argparse.ArgumentParser(description='Use this to run inference with Med-VAE. This function is used when '
-                                                 'you want to manually specify a folder containing an pretrained Med-VAE '
+    parser = argparse.ArgumentParser(description='Use this to run inference with MedVAE. This function is used when '
+                                                 'you want to manually specify a folder containing an pretrained MedVAE '
                                                  'model. ',
                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     
@@ -26,7 +26,7 @@ def parse_arguments():
     parser.add_argument(
             '-model_name', type=str, required=True,
             help=(
-                "There are six Med-VAE models that can be used for inference. Choose between:\n"
+                "There are six MedVAE models that can be used for inference. Choose between:\n"
                 "(1) medvae_4_1_2d: 2D images with a 4x compression in each dim (16x total) with a 1 channel latent.\n"
                 "(2) medvae_4_3_2d: 2D images with a 4x compression in each dim (64x total) with a 3 channel latent.\n"
                 "(3) medvae_8_1_2d: 2D images with an 8x compression in each dim (64x total) with a 1 channel latent.\n"
@@ -45,7 +45,7 @@ def parse_arguments():
                                 "(GPU), 'cpu' (CPU) and 'mps' (Apple M1/M2). Do NOT use this to set which GPU ID! "
                                 "Use CUDA_VISIBLE_DEVICES=X medvae_inference [...] instead!")    
     
-    # Print a message to cite the med-vae paper
+    # Print a message to cite the medvae paper
     cite_function()
     
     args = parser.parse_args()
@@ -65,7 +65,7 @@ def parse_arguments():
         torch.set_num_threads(multiprocessing.cpu_count())
         device = torch.device('cpu')
     elif args.device == 'cuda':
-        # multithreading in torch doesn't help med-vae if run on GPU
+        # multithreading in torch doesn't help medvae if run on GPU
         torch.set_num_threads(1)
         torch.set_num_interop_threads(1)
         device = torch.device('cuda')

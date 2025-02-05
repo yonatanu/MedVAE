@@ -18,11 +18,11 @@ def create_directory(directory: str) -> None:
 
 def cite_function():
     '''
-    Print a message to cite the Med-VAE paper.
+    Print a message to cite the MedVAE paper.
     '''
     print(
         "\n#######################################################################\nPlease cite the following paper "
-        "when using Med-VAE: TODO \n#######################################################################\n")
+        "when using MedVAE: TODO \n#######################################################################\n")
 
 
 ''' 
