@@ -5,7 +5,7 @@ from medvae.utils.lora import inject_trainable_lora_extended
 from medvae.utils.loaders import load_mri_3d, load_ct_3d, load_2d
 import torch
 
-HF_REPO_PATH = "ashwinkumargb/MedVAE"
+HF_REPO_PATH = "stanfordmimi/MedVAE"
 
 FILE_DICT_ASSOCIATIONS = {
     'medvae_4_1_2d': {'config': 'model_weights/medvae_4x1.yaml', 'ckpt': 'model_weights/vae_4x_1c_2D.ckpt'},
