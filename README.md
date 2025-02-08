@@ -53,7 +53,7 @@ medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -mod
 For more information, please check our [inference documentation](/documentation/inference.md) and [demo](documentation/demo.ipynb).
 
 ## 📎 Citation
-If you find this repository useful for your work, please cite the cite the original paper:
+If you find this repository useful for your work, please cite the following paper:
 
 ```bibtex
 @article{varma2025medvae,
