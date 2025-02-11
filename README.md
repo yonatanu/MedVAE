@@ -1,5 +1,5 @@
 # MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders
-[![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)&nbsp;&nbsp;&nbsp;&nbsp;[![pypi](https://img.shields.io/pypi/v/medvae?style=for-the-badge)](https://pypi.org/project/medvae/)&nbsp;&nbsp;&nbsp;&nbsp;[![Hugging Face](https://img.shields.io/badge/Hugging%20Face-FFD21E?logo=huggingface&logoColor=000)](https://huggingface.co/stanfordmimi/MedVAE)
+[![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAE)&nbsp;&nbsp;&nbsp;&nbsp;[![pypi](https://img.shields.io/pypi/v/medvae?style=for-the-badge)](https://pypi.org/project/medvae/)&nbsp;&nbsp;&nbsp;&nbsp;[![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
 
 This repository contains the official PyTorch implementation for MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders.
 
