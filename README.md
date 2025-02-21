@@ -1,7 +1,7 @@
 # MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders
 [![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAE)&nbsp;&nbsp;&nbsp;&nbsp;[![pypi](https://img.shields.io/pypi/v/medvae?style=for-the-badge)](https://pypi.org/project/medvae/)&nbsp;&nbsp;&nbsp;&nbsp;[![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
 
-This repository contains the official PyTorch implementation for MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders.
+This repository contains the official PyTorch implementation for [MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders](https://arxiv.org/abs/2502.14753).
 
 ![Overview](documentation/assets/overview.png)
 
@@ -56,13 +56,14 @@ For more information, please check our [inference documentation](/documentation/
 If you find this repository useful for your work, please cite the following paper:
 
 ```bibtex
-@article{varma2025medvae,
-  title = {MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders},
-  author = {Maya Varma, Ashwin Kumar, Rogier van der Sluijs, Sophie Ostmeier, Louis Blankemeier, Pierre Chambon, Christian Bluethgen, Jip Prince, Curtis Langlotz, Akshay Chaudhari},
-  year = {2025},
-  publisher = {Github},
-  journal = {Github},
-  howpublished = {https://github.com/StanfordMIMI/MedVAE}
+@misc{varma2025medvaeefficientautomatedinterpretation,
+      title={MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders}, 
+      author={Maya Varma and Ashwin Kumar and Rogier van der Sluijs and Sophie Ostmeier and Louis Blankemeier and Pierre Chambon and Christian Bluethgen and Jip Prince and Curtis Langlotz and Akshay Chaudhari},
+      year={2025},
+      eprint={2502.14753},
+      archivePrefix={arXiv},
+      primaryClass={eess.IV},
+      url={https://arxiv.org/abs/2502.14753}, 
 }
 ```
 
