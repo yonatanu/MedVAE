@@ -68,7 +68,26 @@ def load_2d(path: str, merge_channels: bool = False, dtype: torch.dtype = torch.
     except Exception as e:
         print(f"Error in loading {path} with error: {e}")
         return torch.zeros((1, 384, 384))
-
+    
+def load_2d_four_channel(path: str, dtype: torch.dtype = torch.float32, merge_channels: bool = True, **kwargs):
+    img_transforms = Compose(
+        transforms=[
+        MonaiImageOpen(),
+        torchvision.transforms.ToTensor(),
+        torchvision.transforms.Resize((384, 384), interpolation=3, antialias=True),
+        ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+        MonaiNormalize(mean=[0.5], std=[0.5]),],
+        lazy=True,
+    )
+    
+    try:
+        img = img_transforms(path).as_tensor()
+        if merge_channels:
+            img = img.mean(0, keepdim=True)
+        return img
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((1, 384, 384))
 
 """
 Custom transform to normalize, crop, and pad 3D volumes

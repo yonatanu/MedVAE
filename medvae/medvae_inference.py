@@ -48,7 +48,9 @@ def parse_arguments():
     # Print a message to cite the medvae paper
     cite_function()
     
-    args = parser.parse_args()
+    args, unknownargs = parser.parse_known_args()
+    if unknownargs:
+        print(f"Ignoring arguments: {unknownargs}")
     
     # Check if input folder exists
     assert isdir(args.i), f"Input folder {args.i} does not exist."

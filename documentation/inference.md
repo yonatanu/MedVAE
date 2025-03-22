@@ -99,3 +99,23 @@ medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -mod
 | 64 | 3 | 2D | X-ray | Chest, Breast (FFDM) | [medvae_8x4.yaml](https://huggingface.co/stanfordmimi/MedVAE/blob/main/model_weights/medvae_8x4.yaml) | [vae_8x_4c_2D.ckpt](https://huggingface.co/stanfordmimi/MedVAE/blob/main/model_weights/vae_8x_4c_2D.ckpt)
 | 64 | 1 | 3D | MRI, CT | Whole-Body | [medvae_4x1.yaml ](https://huggingface.co/stanfordmimi/MedVAE/blob/main/model_weights/medvae_4x1.yaml) | [vae_4x_1c_3D.ckpt](https://huggingface.co/stanfordmimi/MedVAE/blob/main/model_weights/vae_4x_1c_3D.ckpt)
 | 512 | 1 | 3D | MRI, CT | Whole-Body | [medvae_8x1.yaml](https://huggingface.co/stanfordmimi/MedVAE/blob/main/model_weights/medvae_8x1.yaml) | [vae_8x_1c_3D.ckpt](https://huggingface.co/stanfordmimi/MedVAE/blob/main/model_weights/vae_8x_1c_3D.ckpt)
+
+## Creating a MedVAE conda environment
+
+Run the following in your terminal or command prompt:
+
+```python
+conda create --name medvae python=3.9
+```
+
+To activate the environment, enter:
+
+```python
+conda activate medvae
+```
+
+To delete the environment, enter:
+
+```python
+conda remove --name medvae --all
+```

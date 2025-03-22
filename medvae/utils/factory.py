@@ -10,6 +10,7 @@ HF_REPO_PATH = "stanfordmimi/MedVAE"
 FILE_DICT_ASSOCIATIONS = {
     'medvae_4_1_2d': {'config': 'model_weights/medvae_4x1.yaml', 'ckpt': 'model_weights/vae_4x_1c_2D.ckpt'},
     'medvae_4_3_2d': {'config': 'model_weights/medvae_4x3.yaml', 'ckpt': 'model_weights/vae_4x_3c_2D.ckpt'},
+    'medvae_4_4_2d': {'config': 'model_weights/medvae_4x4.yaml', 'ckpt': 'model_weights/vae_4x_4c_2D.ckpt'},
     'medvae_8_1_2d': {'config': 'model_weights/medvae_8x1.yaml', 'ckpt': 'model_weights/vae_8x_1c_2D.ckpt'},
     'medvae_8_4_2d': {'config': 'model_weights/medvae_8x4.yaml', 'ckpt': 'model_weights/vae_8x_4c_2D.ckpt'},
     'medvae_4_1_3d': {'config': 'model_weights/medvae_4x1.yaml', 'ckpt': 'model_weights/vae_4x_1c_3D.ckpt'},
@@ -26,9 +27,9 @@ def download_model_weights(hfpath):
 ''' 
 Build the Med-VAE models for inference using the model weights
 '''
-def build_model(model_name: str, config_fpath: str, ckpt_fpath: str):
+def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, training: bool = False):
     
-    if model_name == 'medvae_4_1_2d' or model_name == 'medvae_8_1_2d':
+    if model_name == 'medvae_4_1_2d' or model_name == 'medvae_8_1_2d' or model_name == 'medvae_4_4_2d':
         conf  = OmegaConf.load(config_fpath)
         model = AutoencoderKL_2D(
                 ddconfig=conf.ddconfig,
@@ -41,7 +42,22 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str):
                 ddconfig=conf.model.params.ddconfig,
                 embed_dim=conf.model.params.embed_dim,
         )
-        _, _ = inject_trainable_lora_extended(model, {"ResnetBlock", "AttnBlock"}, r=4)
+        # If training, freeze the encoder and decoder and inject the lora
+        if training:
+            print(
+            "Trainable Params before LORA:",
+            sum(p.numel() for p in model.parameters() if p.requires_grad),
+            )
+            model.encoder.requires_grad_(False)
+            model.decoder.requires_grad_(False)
+            _, _ = inject_trainable_lora_extended(model, {"ResnetBlock", "AttnBlock"}, r=4)
+            print(
+                "Trainable Params after LORA:",
+                sum(p.numel() for p in model.parameters() if p.requires_grad),
+            )
+        else:
+            _, _ = inject_trainable_lora_extended(model, {"ResnetBlock", "AttnBlock"}, r=4)
+            
         model.init_from_ckpt(ckpt_fpath)
     elif model_name == 'medvae_4_1_3d' or model_name == 'medvae_8_1_3d':
         
@@ -54,6 +70,9 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str):
     
     return model
 
+'''
+Build the transform for the model
+'''
 def build_transform(model_name: str, modality: str):
     if '3d' in model_name:
         if 'ct' in modality.lower():
@@ -69,6 +88,9 @@ def build_transform(model_name: str, modality: str):
 
     return transform
 
+'''
+Create a model and transform from a model name
+'''
 def create_model_and_transform(
     model_name: str,
     modality: str,
@@ -88,6 +110,23 @@ def create_model_and_transform(
     transform = build_transform(model_name, modality)
     
     return model, transform
+
+'''
+Create a model from a model name
+'''
+def create_model(model_name: str):
+    # Check if model_name is in FILE_DICT_ASSOCIATIONS
+    if model_name not in FILE_DICT_ASSOCIATIONS:
+        raise ValueError(f"Model name {model_name} not found in FILE_DICT_ASSOCIATIONS")
+    
+    # Download the model_weights
+    config_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]['config'])
+    ckpt_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]['ckpt'])
+    
+    # Build the model
+    model = build_model(model_name, config_fpath, ckpt_fpath, training=True)
+    
+    return model
     
     
     

@@ -3,6 +3,10 @@ Miscellaneous utility functions.
 '''
 
 import os
+import random
+import torch
+import numpy as np
+import torch.backends.cudnn as cudnn
 
 
 def create_directory(directory: str) -> None:
@@ -22,9 +26,12 @@ def cite_function():
     '''
     print(
         "\n#######################################################################\nPlease cite the following paper "
-        "when using MedVAE: TODO \n#######################################################################\n")
-
-
+        "when using MedVAE: Varma, M., Kumar, A., van der Sluijs, R., Ostmeier, S., "
+        "Blankemeier, L., Chambon, P., Bluethgen, C., Prince, J., Langlotz, C., "
+        "Chaudhari, A. (2025). MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders. "
+        "arXiv preprint arXiv:2502.14753.\n"
+        "#######################################################################\n")
+    
 ''' 
 Calculate the region of interest (ROI) size for each dimension of the input image shape.
 
@@ -50,3 +57,36 @@ def roi_size_calc(image_shape, target_gpu_dim=160):
             roi_size.append(dim)
     
     return roi_size
+
+
+'''
+This function sanitizes the keyword arguments for a DataLoader by converting the 'num_workers' argument to an integer.
+This is necessary when 'num_workers' is retrieved from the OS environment, as it might be stored as a string.
+'''
+def sanitize_dataloader_kwargs(kwargs):
+    if "num_workers" in kwargs:
+        kwargs["num_workers"] = int(kwargs["num_workers"])
+
+    return kwargs
+
+def set_seed(seed: int):
+    """Seed the RNGs."""
+
+    print(f"=> Setting seed [seed={seed}]")
+    random.seed(seed)
+    torch.manual_seed(seed)
+    np.random.seed(seed)
+    cudnn.deterministic = True
+
+    print("=> Setting a seed slows down training considerably!")
+    
+def get_weight_dtype(accelerator):
+    """Get the weight dtype from the accelerator."""
+
+    if accelerator.mixed_precision == "fp16":
+        weight_dtype = torch.float16
+    else:
+        weight_dtype = torch.float32
+
+    return weight_dtype
+

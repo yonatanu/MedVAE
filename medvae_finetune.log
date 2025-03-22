@@ -1,0 +1,244 @@
+[2025-03-22 11:49:51,111][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:49:51,754][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:49:52,076][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:49:52,171][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:49:52,172][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:49:52,172][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:49:52,172][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:49:52,172][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:49:52,172][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:49:52,687][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:49:52,687][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:49:52,688][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:49:52,688][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:49:52,691][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:49:52,691][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt
+[2025-03-22 11:49:52,976][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model.safetensors
+[2025-03-22 11:49:53,069][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model_1.safetensors
+[2025-03-22 11:49:53,070][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model_2.safetensors
+[2025-03-22 11:49:53,070][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model_3.safetensors
+[2025-03-22 11:49:53,070][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model_4.safetensors
+[2025-03-22 11:49:53,070][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model_5.safetensors
+[2025-03-22 11:49:53,070][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/model_6.safetensors
+[2025-03-22 11:49:53,578][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/optimizer.bin
+[2025-03-22 11:49:53,579][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/optimizer_1.bin
+[2025-03-22 11:49:53,579][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/sampler.bin
+[2025-03-22 11:49:53,579][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/sampler_1.bin
+[2025-03-22 11:49:53,580][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0000.pt/random_states_0.pkl
+[2025-03-22 11:49:55,088][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:49:55,735][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:49:56,225][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:49:56,360][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:49:56,361][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:49:56,361][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:49:56,361][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:49:56,361][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:49:56,362][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:49:57,216][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:49:57,217][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:49:57,217][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:49:57,217][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:49:57,219][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:49:57,220][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt
+[2025-03-22 11:49:57,497][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model.safetensors
+[2025-03-22 11:49:57,582][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model_1.safetensors
+[2025-03-22 11:49:57,583][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model_2.safetensors
+[2025-03-22 11:49:57,583][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model_3.safetensors
+[2025-03-22 11:49:57,583][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model_4.safetensors
+[2025-03-22 11:49:57,583][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model_5.safetensors
+[2025-03-22 11:49:57,583][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/model_6.safetensors
+[2025-03-22 11:49:57,997][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/optimizer.bin
+[2025-03-22 11:49:57,997][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/optimizer_1.bin
+[2025-03-22 11:49:57,997][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/sampler.bin
+[2025-03-22 11:49:57,997][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/sampler_1.bin
+[2025-03-22 11:49:57,998][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0001.pt/random_states_0.pkl
+[2025-03-22 11:49:59,483][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:00,118][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:50:00,651][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:50:00,783][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:50:00,784][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:50:00,784][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:50:00,784][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:50:00,784][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:50:00,785][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:50:01,778][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:50:01,779][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:50:01,780][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:50:01,780][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:50:01,782][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:50:01,783][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt
+[2025-03-22 11:50:02,084][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model.safetensors
+[2025-03-22 11:50:02,182][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model_1.safetensors
+[2025-03-22 11:50:02,182][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model_2.safetensors
+[2025-03-22 11:50:02,182][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model_3.safetensors
+[2025-03-22 11:50:02,183][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model_4.safetensors
+[2025-03-22 11:50:02,183][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model_5.safetensors
+[2025-03-22 11:50:02,183][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/model_6.safetensors
+[2025-03-22 11:50:02,690][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/optimizer.bin
+[2025-03-22 11:50:02,690][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/optimizer_1.bin
+[2025-03-22 11:50:02,690][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/sampler.bin
+[2025-03-22 11:50:02,691][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/sampler_1.bin
+[2025-03-22 11:50:02,692][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0002.pt/random_states_0.pkl
+[2025-03-22 11:50:04,207][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:04,855][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:50:05,292][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:50:05,441][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:50:05,442][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:50:05,442][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:50:05,442][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:50:05,442][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:50:05,442][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:50:06,307][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:50:06,308][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:50:06,309][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:50:06,309][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:50:06,311][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:50:06,312][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt
+[2025-03-22 11:50:06,587][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model.safetensors
+[2025-03-22 11:50:06,671][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model_1.safetensors
+[2025-03-22 11:50:06,672][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model_2.safetensors
+[2025-03-22 11:50:06,672][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model_3.safetensors
+[2025-03-22 11:50:06,672][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model_4.safetensors
+[2025-03-22 11:50:06,672][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model_5.safetensors
+[2025-03-22 11:50:06,672][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/model_6.safetensors
+[2025-03-22 11:50:07,100][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/optimizer.bin
+[2025-03-22 11:50:07,100][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/optimizer_1.bin
+[2025-03-22 11:50:07,100][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/sampler.bin
+[2025-03-22 11:50:07,101][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/sampler_1.bin
+[2025-03-22 11:50:07,101][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0003.pt/random_states_0.pkl
+[2025-03-22 11:50:08,604][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:09,297][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:50:09,854][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:50:10,027][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:50:10,028][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:50:10,028][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:50:10,028][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:50:10,028][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:50:10,029][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:50:11,073][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:50:11,075][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:50:11,075][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:50:11,076][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:50:11,079][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:50:11,082][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt
+[2025-03-22 11:50:11,436][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model.safetensors
+[2025-03-22 11:50:11,548][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model_1.safetensors
+[2025-03-22 11:50:11,549][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model_2.safetensors
+[2025-03-22 11:50:11,549][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model_3.safetensors
+[2025-03-22 11:50:11,549][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model_4.safetensors
+[2025-03-22 11:50:11,549][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model_5.safetensors
+[2025-03-22 11:50:11,549][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/model_6.safetensors
+[2025-03-22 11:50:12,077][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/optimizer.bin
+[2025-03-22 11:50:12,077][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/optimizer_1.bin
+[2025-03-22 11:50:12,078][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/sampler.bin
+[2025-03-22 11:50:12,078][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/sampler_1.bin
+[2025-03-22 11:50:12,079][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0004.pt/random_states_0.pkl
+[2025-03-22 11:50:13,604][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:14,268][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt
+[2025-03-22 11:50:14,589][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model.safetensors
+[2025-03-22 11:50:14,698][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model_1.safetensors
+[2025-03-22 11:50:14,699][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model_2.safetensors
+[2025-03-22 11:50:14,700][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model_3.safetensors
+[2025-03-22 11:50:14,700][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model_4.safetensors
+[2025-03-22 11:50:14,701][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model_5.safetensors
+[2025-03-22 11:50:14,702][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/model_6.safetensors
+[2025-03-22 11:50:15,295][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/optimizer.bin
+[2025-03-22 11:50:15,296][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/optimizer_1.bin
+[2025-03-22 11:50:15,296][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/sampler.bin
+[2025-03-22 11:50:15,296][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/sampler_1.bin
+[2025-03-22 11:50:15,297][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0005.pt/random_states_0.pkl
+[2025-03-22 11:50:16,852][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:17,514][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt
+[2025-03-22 11:50:17,818][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model.safetensors
+[2025-03-22 11:50:17,913][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model_1.safetensors
+[2025-03-22 11:50:17,913][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model_2.safetensors
+[2025-03-22 11:50:17,913][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model_3.safetensors
+[2025-03-22 11:50:17,913][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model_4.safetensors
+[2025-03-22 11:50:17,913][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model_5.safetensors
+[2025-03-22 11:50:17,914][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/model_6.safetensors
+[2025-03-22 11:50:18,375][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/optimizer.bin
+[2025-03-22 11:50:18,376][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/optimizer_1.bin
+[2025-03-22 11:50:18,376][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/sampler.bin
+[2025-03-22 11:50:18,376][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/sampler_1.bin
+[2025-03-22 11:50:18,377][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0006.pt/random_states_0.pkl
+[2025-03-22 11:50:19,924][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:20,611][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:50:21,267][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:50:21,457][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:50:21,458][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:50:21,458][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:50:21,458][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:50:21,458][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:50:21,458][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:50:22,584][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:50:22,585][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:50:22,586][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:50:22,586][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:50:22,589][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:50:22,590][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt
+[2025-03-22 11:50:22,973][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model.safetensors
+[2025-03-22 11:50:23,080][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model_1.safetensors
+[2025-03-22 11:50:23,080][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model_2.safetensors
+[2025-03-22 11:50:23,080][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model_3.safetensors
+[2025-03-22 11:50:23,080][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model_4.safetensors
+[2025-03-22 11:50:23,081][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model_5.safetensors
+[2025-03-22 11:50:23,081][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/model_6.safetensors
+[2025-03-22 11:50:23,603][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/optimizer.bin
+[2025-03-22 11:50:23,604][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/optimizer_1.bin
+[2025-03-22 11:50:23,604][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/sampler.bin
+[2025-03-22 11:50:23,604][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/sampler_1.bin
+[2025-03-22 11:50:23,605][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0007.pt/random_states_0.pkl
+[2025-03-22 11:50:25,146][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:25,841][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt
+[2025-03-22 11:50:26,199][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model.safetensors
+[2025-03-22 11:50:26,315][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model_1.safetensors
+[2025-03-22 11:50:26,316][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model_2.safetensors
+[2025-03-22 11:50:26,316][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model_3.safetensors
+[2025-03-22 11:50:26,316][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model_4.safetensors
+[2025-03-22 11:50:26,316][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model_5.safetensors
+[2025-03-22 11:50:26,316][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/model_6.safetensors
+[2025-03-22 11:50:26,788][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/optimizer.bin
+[2025-03-22 11:50:26,789][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/optimizer_1.bin
+[2025-03-22 11:50:26,789][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/sampler.bin
+[2025-03-22 11:50:26,789][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/sampler_1.bin
+[2025-03-22 11:50:26,790][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0008.pt/random_states_0.pkl
+[2025-03-22 11:50:28,322][accelerate.accelerator][INFO] - The used dataset had no length, returning gathered tensors. You should drop the remainder yourself.
+[2025-03-22 11:50:29,014][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt
+[2025-03-22 11:50:29,561][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model.safetensors
+[2025-03-22 11:50:29,693][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_1.safetensors
+[2025-03-22 11:50:29,693][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_2.safetensors
+[2025-03-22 11:50:29,693][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_3.safetensors
+[2025-03-22 11:50:29,693][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_4.safetensors
+[2025-03-22 11:50:29,694][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_5.safetensors
+[2025-03-22 11:50:29,694][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/model_6.safetensors
+[2025-03-22 11:50:30,594][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer.bin
+[2025-03-22 11:50:30,596][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/optimizer_1.bin
+[2025-03-22 11:50:30,596][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler.bin
+[2025-03-22 11:50:30,596][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/sampler_1.bin
+[2025-03-22 11:50:30,598][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/best.pt/random_states_0.pkl
+[2025-03-22 11:50:30,599][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt
+[2025-03-22 11:50:30,967][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model.safetensors
+[2025-03-22 11:50:31,066][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model_1.safetensors
+[2025-03-22 11:50:31,066][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model_2.safetensors
+[2025-03-22 11:50:31,067][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model_3.safetensors
+[2025-03-22 11:50:31,067][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model_4.safetensors
+[2025-03-22 11:50:31,067][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model_5.safetensors
+[2025-03-22 11:50:31,067][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/model_6.safetensors
+[2025-03-22 11:50:31,531][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/optimizer.bin
+[2025-03-22 11:50:31,531][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/optimizer_1.bin
+[2025-03-22 11:50:31,531][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/sampler.bin
+[2025-03-22 11:50:31,532][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/sampler_1.bin
+[2025-03-22 11:50:31,532][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/epoch-0009.pt/random_states_0.pkl
+[2025-03-22 11:50:31,533][accelerate.accelerator][INFO] - Saving current state to /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt
+[2025-03-22 11:50:31,889][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model.safetensors
+[2025-03-22 11:50:31,998][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model_1.safetensors
+[2025-03-22 11:50:31,999][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model_2.safetensors
+[2025-03-22 11:50:31,999][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model_3.safetensors
+[2025-03-22 11:50:31,999][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model_4.safetensors
+[2025-03-22 11:50:31,999][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model_5.safetensors
+[2025-03-22 11:50:31,999][accelerate.checkpointing][INFO] - Model weights saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/model_6.safetensors
+[2025-03-22 11:50:32,477][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/optimizer.bin
+[2025-03-22 11:50:32,477][accelerate.checkpointing][INFO] - Optimizer state saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/optimizer_1.bin
+[2025-03-22 11:50:32,478][accelerate.checkpointing][INFO] - Sampler state for dataloader 0 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/sampler.bin
+[2025-03-22 11:50:32,478][accelerate.checkpointing][INFO] - Sampler state for dataloader 1 saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/sampler_1.bin
+[2025-03-22 11:50:32,479][accelerate.checkpointing][INFO] - Random states saved in /data/akkumar/MedVAE/medvae/logs/mmg_finetuning/runs/2025-03-22_11-49-46/checkpoints/last.pt/random_states_0.pkl

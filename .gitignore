@@ -55,6 +55,7 @@ coverage.xml
 
 # Environment files
 *.env
+*.vscode
 
 # Data files
 data/
