@@ -37,8 +37,10 @@ def parse_arguments(cfg: DictConfig):
     valid_model_names = ['medvae_4_1_2d', 'medvae_4_3_2d', 'medvae_4_4_2d', 'medvae_8_1_2d', 'medvae_8_4_2d', 'medvae_4_1_3d', 'medvae_8_1_3d']
     assert cfg.model_name in valid_model_names, f"model_name must be one of {valid_model_names}. Got: {cfg.model_name}."
     
-    # Create output directory if it does not exist
-    assert create_directory(cfg.output)
+    assert cfg.stage2 in [True, False], f"stage2 must be one of [True, False]. This is used for 2D stage 2 finetuning. Got: {cfg.stage2}."
+    
+    if cfg.stage2 == 'true':
+        assert os.path.exists(cfg.stage2_weight), f"stage2_weight {cfg.stage2_weight} does not exist."
     
     return cfg
 
@@ -53,8 +55,7 @@ OmegaConf.register_new_resolver("eval", eval)
 def main(cfg: DictConfig):
     cfg = parse_arguments(cfg)
     print(OmegaConf.to_yaml(cfg))
-    print("Root", root)
-    
+        
     # Instantiating config
     print(f"=> Starting [experiment={cfg.get('task_name', 'default')}]")
     cfg = instantiate(cfg)
@@ -104,8 +105,11 @@ def main(cfg: DictConfig):
     criterion = cfg.criterion
     discriminator_iter_start = criterion.discriminator_iter_start
 
-    # Create model
-    model = create_model(cfg.model_name)
+    # Create model and use prior weight for stage 2 finetuning
+    if cfg.stage2 == 'true':
+        model = create_model(cfg.model_name, existing_weight=cfg.stage2_weight)
+    else:
+        model = create_model(cfg.model_name)
         
     model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
 
@@ -115,6 +119,7 @@ def main(cfg: DictConfig):
     batch_size, lr = cfg.batch_size, cfg.base_learning_rate
     lr = gradient_accumulation_steps * batch_size * lr
     
+    # Create autoencoder parameters
     ae_params = (
     list(model.encoder.parameters())
     + list(model.decoder.parameters())

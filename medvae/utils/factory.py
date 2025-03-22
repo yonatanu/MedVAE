@@ -27,14 +27,14 @@ def download_model_weights(hfpath):
 ''' 
 Build the Med-VAE models for inference using the model weights
 '''
-def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, training: bool = False):
+def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, training: bool = False, existing_weight: str = None):
     
     if model_name == 'medvae_4_1_2d' or model_name == 'medvae_8_1_2d' or model_name == 'medvae_4_4_2d':
         conf  = OmegaConf.load(config_fpath)
         model = AutoencoderKL_2D(
                 ddconfig=conf.ddconfig,
                 embed_dim=conf.embed_dim,
-                ckpt_path=ckpt_fpath,
+                ckpt_path=ckpt_fpath if existing_weight is None else existing_weight,
         )
     elif model_name == 'medvae_4_3_2d' or model_name == 'medvae_8_4_2d':
         conf  = OmegaConf.load(config_fpath)
@@ -58,7 +58,7 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, training: b
         else:
             _, _ = inject_trainable_lora_extended(model, {"ResnetBlock", "AttnBlock"}, r=4)
             
-        model.init_from_ckpt(ckpt_fpath)
+        model.init_from_ckpt(ckpt_fpath if existing_weight is None else existing_weight)
     elif model_name == 'medvae_4_1_3d' or model_name == 'medvae_8_1_3d':
         
         conf  = OmegaConf.load(config_fpath)
@@ -66,7 +66,7 @@ def build_model(model_name: str, config_fpath: str, ckpt_fpath: str, training: b
                 ddconfig=conf.ddconfig,
                 embed_dim=conf.embed_dim,
         )
-        model.init_from_ckpt(ckpt_fpath, state_dict=True)
+        model.init_from_ckpt(ckpt_fpath if existing_weight is None else existing_weight, state_dict=True)
     
     return model
 
@@ -114,7 +114,7 @@ def create_model_and_transform(
 '''
 Create a model from a model name
 '''
-def create_model(model_name: str):
+def create_model(model_name: str, existing_weight: str = None):
     # Check if model_name is in FILE_DICT_ASSOCIATIONS
     if model_name not in FILE_DICT_ASSOCIATIONS:
         raise ValueError(f"Model name {model_name} not found in FILE_DICT_ASSOCIATIONS")
@@ -124,7 +124,7 @@ def create_model(model_name: str):
     ckpt_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]['ckpt'])
     
     # Build the model
-    model = build_model(model_name, config_fpath, ckpt_fpath, training=True)
+    model = build_model(model_name, config_fpath, ckpt_fpath, training=True, existing_weight=existing_weight)
     
     return model
     
