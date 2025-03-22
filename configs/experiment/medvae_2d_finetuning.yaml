@@ -1,9 +1,9 @@
 # @package _global_
 
 defaults:
-  - override /criterion: lpips_with_discriminator.yaml
   - override /dataloader: mmgs.yaml
   - override /metrics: reconstruction_minimal.yaml
+  - override /criterion: lpips_with_discriminator.yaml
 
 # Finetuning parameters to change
 task_name: mmg_finetuning
@@ -18,7 +18,7 @@ device: cuda
 mixed_precision: "no"
 gradient_accumulation_steps: 2
 max_epoch: 100
-batch_size: 32
+batch_size: 2
 log_every_n_steps: 20
 base_learning_rate: 4.5e-6
 ema_decay: null

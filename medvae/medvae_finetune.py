@@ -54,7 +54,6 @@ OmegaConf.register_new_resolver("eval", eval)
 @hydra.main(version_base="1.2", config_path=config_dir, config_name="finetuned_vae.yaml")
 def main(cfg: DictConfig):
     cfg = parse_arguments(cfg)
-    print(OmegaConf.to_yaml(cfg))
         
     # Instantiating config
     print(f"=> Starting [experiment={cfg.get('task_name', 'default')}]")
@@ -97,7 +96,7 @@ def main(cfg: DictConfig):
 
     print(f"=> Instantiating train dataloader [device={accelerator.device}]")
     train_dataloader = DataLoader(**sanitize_dataloader_kwargs(cfg["dataloader"]["train"]))
-
+    
     print(f"=> Instantiating valid dataloader [device={accelerator.device}]")
     valid_dataloader = DataLoader(**sanitize_dataloader_kwargs(cfg["dataloader"]["valid"]))
 
@@ -126,10 +125,12 @@ def main(cfg: DictConfig):
     + list(model.quant_conv.parameters())
     + list(model.post_quant_conv.parameters())
     )
+    
     if criterion.learn_logvar:
         ae_params.append(criterion.logvar)
     opt_ae = torch.optim.Adam(ae_params, lr=lr, betas=(0.5, 0.9))
     opt_disc = torch.optim.Adam(criterion.discriminator.parameters(), lr=lr, betas=(0.5, 0.9))
+    
     num_metrics = 5
     # This mean uses lora and needs biomedclip loss
     if cfg.model_name in ['medvae_4_3_2d', 'medvae_8_4_2d']:
@@ -152,7 +153,7 @@ def main(cfg: DictConfig):
         metrics = list(zip(names, accelerator.prepare(*metrics)))
     else:
         metrics = []
-            
+        
     # Resume from checkpoint
     start_epoch = cfg.start_epoch
     if cfg.resume_from_ckpt is not None:

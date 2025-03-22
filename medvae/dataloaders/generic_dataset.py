@@ -93,7 +93,7 @@ class GenericDataset(Dataset):
                 .apply(lambda x: os.path.join(self.img_dir, f"{x}{img_suffix or ''}"))
                 .to_list()
             )
-
+            
         # Extract the columns with labels
         if lbl_columns is not None:
             self.samples["lbl"] = self.df.select(lbl_columns)
