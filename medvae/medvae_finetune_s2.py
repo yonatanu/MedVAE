@@ -1,3 +1,7 @@
+'''
+Please note this script is for 2D stage 2 finetuning. If you have a 3D model, please use the medvae_finetune.py script.
+'''
+
 import torch
 import argparse
 import pyrootutils
@@ -13,7 +17,7 @@ from accelerate import Accelerator, DistributedDataParallelKwargs
 from accelerate.utils import GradientAccumulationPlugin
 from torch.utils.data import DataLoader
 from torchmetrics import MeanMetric
-from medvae.utils.vae.train_components import training_epoch, validation_epoch
+from medvae.utils.vae.train_components_stage2 import training_epoch, validation_epoch
 
 """
 Process configuration from Hydra instead of command line arguments.
@@ -28,12 +32,22 @@ def parse_arguments(cfg: DictConfig):
 
     # Print a message to cite the med-vae paper
     cite_function()
+    
+     # Add visual emphasis to important warning message
+    print("\n" + "="*80)
+    print("⚠️  WARNING: This script is for 2D stage 2 finetuning ONLY ⚠️")
+    print("If you have a 3D model, please use the medvae_finetune.py script instead.")
+    print("="*80 + "\n")
 
     # Validate model_name
-    valid_model_names = ['medvae_4_1_2d', 'medvae_4_3_2d', 'medvae_4_4_2d', 'medvae_8_1_2d', 'medvae_8_4_2d', 'medvae_4_1_3d', 'medvae_8_1_3d']
+    valid_model_names = ['medvae_4_1_2d', 'medvae_4_3_2d', 'medvae_4_4_2d', 'medvae_8_1_2d', 'medvae_8_4_2d']
     assert cfg.model_name in valid_model_names, f"model_name must be one of {valid_model_names}. Got: {cfg.model_name}."
     
-    assert cfg.stage2 is False, f"stage2 must be False. This script is not used for 2D stage 2 finetuning. Got: {cfg.stage2}."
+    assert cfg.stage2 is True, f"stage2 must be True for stage 2 finetuning. This is used for 2D stage 2 finetuning. Got: {cfg.stage2}."
+    
+    cfg.stage2_ckpt = os.path.abspath(cfg.stage2_ckpt)
+    if not os.path.exists(cfg.stage2_ckpt):
+        raise FileNotFoundError(f"stage2_ckpt {cfg.stage2_ckpt} does not exist.")
     
     return cfg
 
@@ -63,7 +77,7 @@ def main(cfg: DictConfig):
     logger_kwargs = cfg.get("logger", None)
     is_logging = bool(logger_kwargs)
     print(f"=> Instantiate accelerator [logging={is_logging}]")
-
+    
     gradient_accumulation_steps = cfg.get("gradient_accumulation_steps", 1)
     accelerator = Accelerator(
         gradient_accumulation_plugin=GradientAccumulationPlugin(
@@ -95,13 +109,23 @@ def main(cfg: DictConfig):
 
     # Create loss function
     criterion = cfg.criterion
-    
-    # Only run the discriminator when its needed (stage 1 -- 2D; Stage 2 -- 3D)
-    # We delay the discriminator by setting a start to avoid potential mode collapse
-    discriminator_iter_start = criterion.discriminator_iter_start
 
-    # Create model
-    model = create_model(cfg.model_name)
+    # Create model and use prior weight for stage 1 weight for stage 2 finetuning
+    model = create_model(cfg.model_name, existing_weight=cfg.stage2_ckpt, training=False, state_dict=False)
+    
+    # Freeze the encoder, decoder, quant_conv, and post_quant_conv layers, so that only the projection head is trainable
+    print(
+            "Trainable Params before freeze:",
+            sum(p.numel() for p in model.parameters() if p.requires_grad),
+        )
+    model.encoder.requires_grad_(False)
+    model.decoder.requires_grad_(False)
+    model.quant_conv.requires_grad_(False)
+    model.post_quant_conv.requires_grad_(False)
+    print(
+            "Trainable Params after freeze:",
+            sum(p.numel() for p in model.parameters() if p.requires_grad),
+        )
         
     model = torch.nn.SyncBatchNorm.convert_sync_batchnorm(model)
 
@@ -111,32 +135,17 @@ def main(cfg: DictConfig):
     batch_size, lr = cfg.batch_size, cfg.base_learning_rate
     lr = gradient_accumulation_steps * batch_size * lr
     
-    # Create autoencoder parameters
-    ae_params = (
-        list(model.encoder.parameters())
-        + list(model.decoder.parameters())
-        + list(model.quant_conv.parameters())
-        + list(model.post_quant_conv.parameters())
-    )
-
-    if criterion.learn_logvar:
-        ae_params.append(criterion.logvar)
+    
+    ae_params = list(model.channel_ds.parameters()) + list(model.channel_proj.parameters())
     opt_ae = torch.optim.Adam(ae_params, lr=lr, betas=(0.5, 0.9))
     
-    opt_disc = torch.optim.Adam(criterion.discriminator.parameters(), lr=lr, betas=(0.5, 0.9))
-    
-    num_metrics = 5
-    # This mean uses lora and needs biomedclip loss
-    if cfg.model_name in ['medvae_4_3_2d', 'medvae_8_4_2d']:
-        num_metrics += 1   
+    num_metrics = 3
     
     # Prepare components for multi-gpu/mixed precision training
-    (train_dataloader, valid_dataloader, model, opt_ae, opt_disc, criterion) = accelerator.prepare(
+    (train_dataloader, valid_dataloader, model, criterion) = accelerator.prepare(
         train_dataloader,
         valid_dataloader,
         model,
-        opt_ae,
-        opt_disc,
         criterion,
     )
     
@@ -147,12 +156,7 @@ def main(cfg: DictConfig):
         metrics = list(zip(names, accelerator.prepare(*metrics)))
     else:
         metrics = []
-        
-    # Resume from checkpoint
-    start_epoch = cfg.start_epoch
-    if cfg.resume_from_ckpt is not None:
-        print('Loading Model from Checkpoint: ', cfg.resume_from_ckpt)
-        accelerator.load_state(cfg.resume_from_ckpt)
+    
 
     options = {
         "max_epoch": cfg["max_epoch"],
@@ -166,7 +170,7 @@ def main(cfg: DictConfig):
     print(f"=> Starting model training [epochs={cfg['max_epoch']}]")
     min_loss = None
     global_step = cfg.get("global_step", 0)
-    for epoch in range(start_epoch, cfg["max_epoch"]):
+    for epoch in range(cfg["max_epoch"]):
         global_step = training_epoch(
             options=options,
             epoch=epoch,
@@ -175,11 +179,9 @@ def main(cfg: DictConfig):
             dataloader=train_dataloader,
             model=model,
             criterion=criterion,
-            discriminator_iter_start=discriminator_iter_start,
             default_metrics=default_metrics,
             rec_metrics=metrics,
-            optimizer_ae=opt_ae,
-            optimizer_disc=opt_disc,
+            opt=opt_ae,
         )
 
         accelerator.wait_for_everyone()

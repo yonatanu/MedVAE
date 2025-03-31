@@ -54,6 +54,8 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Remove data file
+/medvae/data/
 
 # Environment files
 *.env
@@ -64,3 +66,4 @@ data/
 
 # Log files
 logs/
+*.log

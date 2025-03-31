@@ -37,13 +37,23 @@ def training_epoch(
     for _, metric in rec_metrics:
         metric.reset()
 
-    (
-        metric_aeloss,
-        metric_discloss,
-        metric_ae_recloss,
-        metric_data,
-        metric_batch,
-    ) = default_metrics
+    if len(default_metrics) == 6:
+        (
+            metric_aeloss,
+            metric_discloss,
+            metric_ae_recloss,
+            metric_bc_loss,
+            metric_data,
+            metric_batch,
+        ) = default_metrics
+    else:
+        (
+            metric_aeloss,
+            metric_discloss,
+            metric_ae_recloss,
+            metric_data,
+            metric_batch,
+        ) = default_metrics
 
     model.train()
     epoch_start, batch_start = time(), time()
@@ -105,18 +115,24 @@ def training_epoch(
         metric_discloss.update(discloss)
         metric_data.update(data_time)
         metric_batch.update(batch_time)
+        if "train/bc_loss" in log_dict_ae:
+            metric_bc_loss.update(log_dict_ae["train/bc_loss"])
 
         images, reconstructions = accelerator.gather_for_metrics((images, reconstructions))
         for _, metric in rec_metrics:
             metric.update(images, reconstructions)
 
         # Logging values
+        bc_print = ""
+        if "train/bc_loss" in log_dict_ae:
+            bc_print = f"BC Loss: {log_dict_ae['train/bc_loss'].item():.3f} ({metric_bc_loss.compute():.3f}) - "
         print(
             f"\r[Epoch <{epoch:03}/{options['max_epoch']}>: Step <{i:03}/{len(dataloader)}>] - "
             + f"Data(s): {data_time:.3f} ({metric_data.compute():.3f}) - "
             + f"Batch(s): {batch_time:.3f} ({metric_batch.compute():.3f}) - "
             + f"AE Loss: {aeloss.item():.3f} ({metric_aeloss.compute():.3f}) - "
             + f"AE Rec Loss: {log_dict_ae['train/rec_loss'].item():.3f} ({metric_ae_recloss.compute():.3f}) - "
+            + bc_print
             + f"Disc Loss: {discloss.item():.3f} ({metric_discloss.compute():.3f}) - "
             + f"{(((time() - epoch_start) / (i + 1)) * (len(dataloader) - i)) / 60:.2f} m remaining\n"
         )
@@ -137,6 +153,9 @@ def training_epoch(
                 "step_data": data_time,
                 "step_batch": batch_time,
             }
+            
+            if "train/bc_loss" in log_dict_ae:
+                log_data["mean_bc_loss"] = metric_bc_loss.compute()
 
             for name, metric in rec_metrics:
                 log_data[name] = metric.compute()

@@ -7,6 +7,7 @@ from monai.transforms import (
     ScaleIntensity,
     CropForeground,
     ScaleIntensityRange,
+    RandSpatialCrop,
 )
 import torch
 import torch.nn.functional as F
@@ -69,7 +70,7 @@ def load_2d(path: str, merge_channels: bool = False, dtype: torch.dtype = torch.
         print(f"Error in loading {path} with error: {e}")
         return torch.zeros((1, 384, 384))
     
-def load_2d_four_channel(path: str, dtype: torch.dtype = torch.float32, merge_channels: bool = True, **kwargs):
+def load_2d_finetune(path: str, dtype: torch.dtype = torch.float32, merge_channels: bool = True, **kwargs):
     img_transforms = Compose(
         transforms=[
         MonaiImageOpen(),
@@ -134,3 +135,53 @@ def load_ct_3d(path: str, dtype: torch.dtype = torch.float32, **kwargs):
     except Exception as e:
         print(f"Error in loading {path} with error: {e}")
         return torch.zeros((1, 256, 256, 256))
+    
+"""
+Custom transform to normalize, crop, and pad 3D volumes
+@input: path to image (str)
+@Output: padding (np.array)
+"""
+def load_mri_3d_finetune(path: str, dtype: torch.dtype = torch.float32, **kwargs):
+    mri_transforms = Compose(
+        transforms=[LoadImage(),
+        EnsureChannelFirst(),
+        Orientation(axcodes="RAS"),
+        ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+        MonaiNormalize(mean=[0.5], std=[0.5]),
+        MonaiPad(size=[64, 64, 64], value=-1),
+        RandSpatialCrop(roi_size=[64, 64, 64]),],
+        lazy=True,
+    )
+    
+    try: 
+        mr_augmented = mri_transforms(path).as_tensor()
+        return mr_augmented
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((1, 64, 64, 64))
+
+"""
+Custom transform to normalize, crop, and pad ct 3D volumes
+@input: path to image (str)
+@Output: padding (np.array)
+"""
+def load_ct_3d_finetune(path: str, dtype: torch.dtype = torch.float32, **kwargs):
+    
+    ct_transforms = Compose(
+        transforms=[LoadImage(),
+        EnsureChannelFirst(),
+        Orientation(axcodes="RAS"),
+        ScaleIntensityRange(a_min=-1000, a_max=1000, b_min=0.0, b_max=1.0, clip=True),
+        MonaiNormalize(mean=[0.5], std=[0.5]),
+        MonaiPad(size=[64, 64, 64], value=-1),
+        RandSpatialCrop(roi_size=[64, 64, 64]),],
+        lazy=True,
+    )
+    
+    try: 
+        ct_augmented = ct_transforms(path).as_tensor()
+        return ct_augmented
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((1, 64, 64, 64))
+

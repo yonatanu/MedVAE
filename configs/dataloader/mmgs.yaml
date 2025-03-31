@@ -18,7 +18,10 @@ train:
           _target_: torchvision.transforms.Compose
           transforms:
             - _partial_: true
-              _target_: medvae.utils.loaders.load_2d_four_channel
+              _target_: medvae.utils.loaders.load_2d_finetune
+
+              # If you don't have single channel input
+              merge_channels: ${merge_channels}
 
 valid:
   dataset:
@@ -37,7 +40,10 @@ valid:
           _target_: torchvision.transforms.Compose
           transforms:
             - _partial_: true
-              _target_: medvae.utils.loaders.load_2d_four_channel
+              _target_: medvae.utils.loaders.load_2d_finetune
+
+              # If you don't have single channel input
+              merge_channels: ${merge_channels}
 
 test:
   dataset:
@@ -56,4 +62,7 @@ test:
           _target_: torchvision.transforms.Compose
           transforms:
             - _partial_: true
-              _target_: medvae.utils.loaders.load_2d_four_channel
+              _target_: medvae.utils.loaders.load_2d_finetune
+
+              # If you don't have single channel input
+              merge_channels: ${merge_channels}
