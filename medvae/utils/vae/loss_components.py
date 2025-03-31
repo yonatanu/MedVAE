@@ -1,5 +1,4 @@
 import functools
-import hashlib
 import os
 from collections import namedtuple
 
@@ -36,7 +35,9 @@ class LPIPS(nn.Module):
 
     def load_from_pretrained(self, name="vgg_lpips"):
         ckpt = get_ckpt_path(name, ".cache")
-        self.load_state_dict(torch.load(ckpt, map_location=torch.device("cpu")), strict=False)
+        self.load_state_dict(
+            torch.load(ckpt, map_location=torch.device("cpu")), strict=False
+        )
         print(f"loaded pretrained LPIPS loss from {ckpt}")
 
     @classmethod
@@ -45,7 +46,9 @@ class LPIPS(nn.Module):
             raise NotImplementedError
         model = cls()
         ckpt = get_ckpt_path(name)
-        model.load_state_dict(torch.load(ckpt, map_location=torch.device("cpu")), strict=False)
+        model.load_state_dict(
+            torch.load(ckpt, map_location=torch.device("cpu")), strict=False
+        )
         return model
 
     def forward(self, input, target):
@@ -54,7 +57,10 @@ class LPIPS(nn.Module):
         feats0, feats1, diffs = {}, {}, {}
         lins = [self.lin0, self.lin1, self.lin2, self.lin3, self.lin4]
         for kk in range(len(self.chns)):
-            feats0[kk], feats1[kk] = normalize_tensor(outs0[kk]), normalize_tensor(outs1[kk])
+            feats0[kk], feats1[kk] = (
+                normalize_tensor(outs0[kk]),
+                normalize_tensor(outs1[kk]),
+            )
             diffs[kk] = (feats0[kk] - feats1[kk]) ** 2
 
         res = [
@@ -79,8 +85,12 @@ def weights_init(m):
 class ScalingLayer(nn.Module):
     def __init__(self):
         super().__init__()
-        self.register_buffer("shift", torch.Tensor([-0.030, -0.088, -0.188])[None, :, None, None])
-        self.register_buffer("scale", torch.Tensor([0.458, 0.448, 0.450])[None, :, None, None])
+        self.register_buffer(
+            "shift", torch.Tensor([-0.030, -0.088, -0.188])[None, :, None, None]
+        )
+        self.register_buffer(
+            "scale", torch.Tensor([0.458, 0.448, 0.450])[None, :, None, None]
+        )
 
     def forward(self, inp):
         return (inp - self.shift) / self.scale
@@ -107,7 +117,9 @@ class NetLinLayer(nn.Module):
 class vgg16(torch.nn.Module):
     def __init__(self, requires_grad=False):
         super().__init__()
-        vgg_pretrained_features = models.vgg16(weights="VGG16_Weights.IMAGENET1K_V1").features
+        vgg_pretrained_features = models.vgg16(
+            weights="VGG16_Weights.IMAGENET1K_V1"
+        ).features
         self.slice1 = torch.nn.Sequential()
         self.slice2 = torch.nn.Sequential()
         self.slice3 = torch.nn.Sequential()
@@ -254,7 +266,9 @@ class NLayerDiscriminator(nn.Module):
 
 
 class ActNorm(nn.Module):
-    def __init__(self, num_features, logdet=False, affine=True, allow_reverse_init=False):
+    def __init__(
+        self, num_features, logdet=False, affine=True, allow_reverse_init=False
+    ):
         assert affine
         super().__init__()
         self.logdet = logdet
@@ -267,8 +281,20 @@ class ActNorm(nn.Module):
     def initialize(self, input):
         with torch.no_grad():
             flatten = input.permute(1, 0, 2, 3).contiguous().view(input.shape[1], -1)
-            mean = flatten.mean(1).unsqueeze(1).unsqueeze(2).unsqueeze(3).permute(1, 0, 2, 3)
-            std = flatten.std(1).unsqueeze(1).unsqueeze(2).unsqueeze(3).permute(1, 0, 2, 3)
+            mean = (
+                flatten.mean(1)
+                .unsqueeze(1)
+                .unsqueeze(2)
+                .unsqueeze(3)
+                .permute(1, 0, 2, 3)
+            )
+            std = (
+                flatten.std(1)
+                .unsqueeze(1)
+                .unsqueeze(2)
+                .unsqueeze(3)
+                .permute(1, 0, 2, 3)
+            )
 
             self.loc.data.copy_(-mean)
             self.scale.data.copy_(1 / (std + 1e-6))

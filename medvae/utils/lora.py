@@ -1,17 +1,13 @@
-'''
+"""
 File from lora_diffusion: https://github.com/cloneofsimo/lora
-'''
+"""
 
 import json
-import math
 from itertools import groupby
-from typing import Callable, Dict, List, Optional, Set, Tuple, Type, Union
+from typing import Dict, List, Optional, Set, Tuple, Type, Union
 
-import numpy as np
-import PIL
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.utils.checkpoint import checkpoint
 
 try:
@@ -56,20 +52,19 @@ class LoraInjectedLinear(nn.Module):
         nn.init.zeros_(self.lora_up.weight)
 
     def forward(self, input):
-        
         # return (
         #     self.linear(input)
         #     + self.dropout(self.lora_up(self.selector(self.lora_down(input))))
         #     * self.scale
         # )
-        
+
         x = checkpoint(self.linear, input, use_reentrant=False)
         q = checkpoint(self.lora_down, input, use_reentrant=False)
         q = checkpoint(self.selector, q, use_reentrant=False)
         q = checkpoint(self.lora_up, q, use_reentrant=False)
         q = checkpoint(self.dropout, q, use_reentrant=False)
         x = x + q * self.scale
-        return x 
+        return x
 
     def realize_as_lora(self):
         return self.lora_up.weight.data * self.scale, self.lora_down.weight.data
@@ -168,7 +163,7 @@ class LoraInjectedConv2d(nn.Module):
         self.selector.weight.data = self.selector.weight.data.to(
             self.lora_up.weight.device
         ).to(self.lora_up.weight.dtype)
-        
+
 
 class LoraInjectedConv3d(nn.Module):
     def __init__(
@@ -234,9 +229,9 @@ class LoraInjectedConv3d(nn.Module):
         q = checkpoint(self.lora_up, q, use_reentrant=False)
         q = checkpoint(self.dropout, q, use_reentrant=False)
         x = x + q * self.scale
-        return x 
+        return x
         # return (
-            
+
         #     + checkpoint(self.dropout(checkpoint(self.lora_up(checkpoint(self.selector(, use_reentrant=False)), use_reentrant=False), use_reentrant=False)), use_reentrant=False)
         #     * self.scale
         # )
@@ -348,7 +343,6 @@ def _find_modules_old(
     ret = []
     for _module in model.modules():
         if _module.__class__.__name__ in ancestor_class:
-
             for name, _child_module in _module.named_modules():
                 if _child_module.__class__ in search_class:
                     ret.append((_module, name, _child_module))
@@ -506,7 +500,6 @@ def inject_trainable_lora_extended(
 
 
 def extract_lora_ups_down(model, target_replace_module=DEFAULT_TARGET_REPLACE):
-
     loras = []
 
     for _m, _n, _child_module in _find_modules(
@@ -525,7 +518,6 @@ def extract_lora_ups_down(model, target_replace_module=DEFAULT_TARGET_REPLACE):
 def extract_lora_as_tensor(
     model, target_replace_module=DEFAULT_TARGET_REPLACE, as_fp16=True
 ):
-
     loras = []
 
     for _m, _n, _child_module in _find_modules(
@@ -758,13 +750,11 @@ def load_safeloras_both(path, device="cpu"):
 
 
 def collapse_lora(model, alpha=1.0):
-
     for _module, name, _child_module in _find_modules(
         model,
         UNET_EXTENDED_TARGET_REPLACE | TEXT_ENCODER_EXTENDED_TARGET_REPLACE,
         search_class=[LoraInjectedLinear, LoraInjectedConv2d],
     ):
-
         if isinstance(_child_module, LoraInjectedLinear):
             print("Collapsing Lin Lora in", name)
 
@@ -849,7 +839,6 @@ def monkeypatch_or_replace_lora_extended(
         target_replace_module,
         search_class=[nn.Linear, LoraInjectedLinear, nn.Conv2d, LoraInjectedConv2d],
     ):
-
         if (_child_module.__class__ == nn.Linear) or (
             _child_module.__class__ == LoraInjectedLinear
         ):
@@ -1031,9 +1020,9 @@ def apply_learned_embed_in_clip(
     if isinstance(token, str):
         trained_tokens = [token]
     elif isinstance(token, list):
-        assert len(learned_embeds.keys()) == len(
-            token
-        ), "The number of tokens and the number of embeds should be the same"
+        assert len(learned_embeds.keys()) == len(token), (
+            "The number of tokens and the number of embeds should be the same"
+        )
         trained_tokens = token
     else:
         trained_tokens = list(learned_embeds.keys())
@@ -1197,7 +1186,6 @@ def save_all(
 
         # save text encoder
         if save_lora:
-
             save_lora_weight(
                 unet, save_path, target_replace_module=target_replace_module_unet
             )
@@ -1211,15 +1199,14 @@ def save_all(
             print("Text Encoder saved to ", _text_lora_path(save_path))
 
     else:
-        assert save_path.endswith(
-            ".safetensors"
-        ), f"Save path : {save_path} should end with .safetensors"
+        assert save_path.endswith(".safetensors"), (
+            f"Save path : {save_path} should end with .safetensors"
+        )
 
         loras = {}
         embeds = {}
 
         if save_lora:
-
             loras["unet"] = (unet, target_replace_module_unet)
             loras["text_encoder"] = (text_encoder, target_replace_module_text)
 

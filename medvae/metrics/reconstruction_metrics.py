@@ -1,10 +1,8 @@
 from copy import deepcopy
 
 import clip
-import numpy as np
 import open_clip
 import torch
-import torchvision
 from torchmetrics import (
     Metric,
     MultiScaleStructuralSimilarityIndexMeasure,
@@ -14,6 +12,7 @@ from torchmetrics.image.fid import FrechetInceptionDistance, _compute_fid
 from torchvision.transforms import CenterCrop, Compose, Normalize, Resize
 
 from monai.transforms import SpatialPad
+
 
 class MSE(Metric):
     def __init__(self):
@@ -74,14 +73,16 @@ class MS_SSIM(Metric):
         self.add_state("ms_ssim", default=torch.tensor(0.0), dist_reduce_fx="sum")
         self.add_state("total", default=torch.tensor(0.0), dist_reduce_fx="sum")
 
-        self.func = MultiScaleStructuralSimilarityIndexMeasure(reduction="none", data_range=1.0)
+        self.func = MultiScaleStructuralSimilarityIndexMeasure(
+            reduction="none", data_range=1.0
+        )
 
     def update(self, images, reconstructions):
         assert images.shape == reconstructions.shape
 
         # Undo normalization and transform reconstructions to 0 to 1 range
         images = torch.clamp((images + 1.0) / 2.0, min=0.0, max=1.0)
-        
+
         # Undo normalization and transform reconstructions to 0 to 1 range
         reconstructions = torch.clamp((reconstructions + 1.0) / 2.0, min=0.0, max=1.0)
 
@@ -93,32 +94,33 @@ class MS_SSIM(Metric):
 
     def compute(self):
         return self.ms_ssim.float() / self.total
-    
+
+
 class MS_SSIM_SMALL(Metric):
     def __init__(self):
         super().__init__()
         self.add_state("ms_ssim", default=torch.tensor(0.0), dist_reduce_fx="sum")
         self.add_state("total", default=torch.tensor(0.0), dist_reduce_fx="sum")
 
-        self.func = MultiScaleStructuralSimilarityIndexMeasure(reduction="none", data_range=1.0)
+        self.func = MultiScaleStructuralSimilarityIndexMeasure(
+            reduction="none", data_range=1.0
+        )
 
     def update(self, images, reconstructions):
         assert images.shape == reconstructions.shape
-
 
         # Undo normalization and transform reconstructions to 0 to 1 range
         images = torch.clamp((images + 1.0) / 2.0, min=0.0, max=1.0)
         images = SpatialPad(spatial_size=(1, 192, 192, 192))(images).as_tensor()
 
-
         # Undo normalization and transform reconstructions to 0 to 1 range
         reconstructions = torch.clamp((reconstructions + 1.0) / 2.0, min=0.0, max=1.0)
-        reconstructions = SpatialPad(spatial_size=(1, 192, 192, 192))(reconstructions).as_tensor()
-
+        reconstructions = SpatialPad(spatial_size=(1, 192, 192, 192))(
+            reconstructions
+        ).as_tensor()
 
         # Compute MS-SSIM
         ms_ssim = self.func(reconstructions, images).sum()
-        
 
         self.ms_ssim += ms_ssim
         self.total += images.shape[0]
@@ -136,12 +138,14 @@ class FID_Inception(Metric):
         assert images.shape == reconstructions.shape
 
         # Undo normalization and transform reconstructions to 0 to 1 range
-        images = torch.clamp((images + 1.0) / 2.0, min=0.0, max=1.0).expand(-1, 3, -1, -1)
-
-        # Undo normalization and transform reconstructions to 0 to 1 range
-        reconstructions = torch.clamp((reconstructions + 1.0) / 2.0, min=0.0, max=1.0).expand(
+        images = torch.clamp((images + 1.0) / 2.0, min=0.0, max=1.0).expand(
             -1, 3, -1, -1
         )
+
+        # Undo normalization and transform reconstructions to 0 to 1 range
+        reconstructions = torch.clamp(
+            (reconstructions + 1.0) / 2.0, min=0.0, max=1.0
+        ).expand(-1, 3, -1, -1)
 
         # Compute FID
         self.func.update(images, real=True)
@@ -149,7 +153,7 @@ class FID_Inception(Metric):
 
     def compute(self):
         return self.func.compute()
-    
+
 
 class FID_Inception_3D(Metric):
     def __init__(self):
@@ -159,14 +163,14 @@ class FID_Inception_3D(Metric):
     def update(self, images, reconstructions):
         assert images.shape == reconstructions.shape
 
-        for dim_idx, dim_name in enumerate(['depth', 'height', 'width'], start=2):
+        for dim_idx, dim_name in enumerate(["depth", "height", "width"], start=2):
             # Iterate over slices along the current dimension
             for j in range(images.size(dim_idx)):
                 # Select the appropriate slice along each dimension
-                if dim_name == 'depth':
+                if dim_name == "depth":
                     slice_i = images[:, :, j, :, :]
                     recon_i = reconstructions[:, :, j, :, :]
-                elif dim_name == 'height':
+                elif dim_name == "height":
                     slice_i = images[:, :, :, j, :]
                     recon_i = reconstructions[:, :, :, j, :]
                 else:  # dim_name == 'width'
@@ -212,7 +216,8 @@ class FID_CLIP(Metric):
                 Resize(res, interpolation=3),
                 CenterCrop(res),
                 Normalize(
-                    (0.48145466, 0.4578275, 0.40821073), (0.26862954, 0.26130258, 0.27577711)
+                    (0.48145466, 0.4578275, 0.40821073),
+                    (0.26862954, 0.26130258, 0.27577711),
                 ),
             ]
         )
@@ -223,20 +228,32 @@ class FID_CLIP(Metric):
         num_features = 512
         mx_nb_feats = (num_features, num_features)
         self.add_state(
-            "real_features_sum", torch.zeros(num_features).double(), dist_reduce_fx="sum"
+            "real_features_sum",
+            torch.zeros(num_features).double(),
+            dist_reduce_fx="sum",
         )
         self.add_state(
-            "real_features_cov_sum", torch.zeros(mx_nb_feats).double(), dist_reduce_fx="sum"
+            "real_features_cov_sum",
+            torch.zeros(mx_nb_feats).double(),
+            dist_reduce_fx="sum",
         )
-        self.add_state("real_features_num_samples", torch.tensor(0).long(), dist_reduce_fx="sum")
+        self.add_state(
+            "real_features_num_samples", torch.tensor(0).long(), dist_reduce_fx="sum"
+        )
 
         self.add_state(
-            "fake_features_sum", torch.zeros(num_features).double(), dist_reduce_fx="sum"
+            "fake_features_sum",
+            torch.zeros(num_features).double(),
+            dist_reduce_fx="sum",
         )
         self.add_state(
-            "fake_features_cov_sum", torch.zeros(mx_nb_feats).double(), dist_reduce_fx="sum"
+            "fake_features_cov_sum",
+            torch.zeros(mx_nb_feats).double(),
+            dist_reduce_fx="sum",
         )
-        self.add_state("fake_features_num_samples", torch.tensor(0).long(), dist_reduce_fx="sum")
+        self.add_state(
+            "fake_features_num_samples", torch.tensor(0).long(), dist_reduce_fx="sum"
+        )
 
     def update(self, images, reconstructions):
         assert images.shape == reconstructions.shape
@@ -272,8 +289,12 @@ class FID_CLIP(Metric):
         self.fake_features_num_samples += imgs.shape[0]
 
     def compute(self):
-        mean_real = (self.real_features_sum / self.real_features_num_samples).unsqueeze(0)
-        mean_fake = (self.fake_features_sum / self.fake_features_num_samples).unsqueeze(0)
+        mean_real = (self.real_features_sum / self.real_features_num_samples).unsqueeze(
+            0
+        )
+        mean_fake = (self.fake_features_sum / self.fake_features_num_samples).unsqueeze(
+            0
+        )
 
         cov_real_num = (
             self.real_features_cov_sum
@@ -285,9 +306,9 @@ class FID_CLIP(Metric):
             - self.fake_features_num_samples * mean_fake.t().mm(mean_fake)
         )
         cov_fake = cov_fake_num / (self.fake_features_num_samples - 1)
-        return _compute_fid(mean_real.squeeze(0), cov_real, mean_fake.squeeze(0), cov_fake).to(
-            self.orig_dtype
-        )
+        return _compute_fid(
+            mean_real.squeeze(0), cov_real, mean_fake.squeeze(0), cov_fake
+        ).to(self.orig_dtype)
 
     def reset(self) -> None:
         if not self.reset_real_features:
@@ -310,14 +331,14 @@ class FID_CLIP_3D(Metric):
     def update(self, images, reconstructions):
         assert images.shape == reconstructions.shape
 
-        for dim_idx, dim_name in enumerate(['depth', 'height', 'width'], start=2):
+        for dim_idx, dim_name in enumerate(["depth", "height", "width"], start=2):
             # Iterate over slices along the current dimension
             for j in range(images.size(dim_idx)):
                 # Select the appropriate slice along each dimension
-                if dim_name == 'depth':
+                if dim_name == "depth":
                     slice_i = images[:, :, j, :, :]
                     recon_i = reconstructions[:, :, j, :, :]
-                elif dim_name == 'height':
+                elif dim_name == "height":
                     slice_i = images[:, :, :, j, :]
                     recon_i = reconstructions[:, :, :, j, :]
                 else:  # dim_name == 'width'
@@ -329,6 +350,6 @@ class FID_CLIP_3D(Metric):
 
     def compute(self):
         return self.func.compute()
-    
+
     def reset(self) -> None:
         self.func.reset()
