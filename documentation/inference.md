@@ -119,3 +119,23 @@ To delete the environment, enter:
 ```python
 conda remove --name medvae --all
 ```
+
+## Running pre-commit
+
+To install the project as a development package, run the following command in your terminal or command prompt:
+
+```python
+pip install -e .[dev]
+```
+
+Install pre-commit
+
+```python
+pre-commit install
+```
+
+Run pre-commit
+
+```python
+pre - commit
+```
