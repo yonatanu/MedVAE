@@ -24,9 +24,11 @@ For an editable installation, use the following commands to clone and install th
 git clone https://github.com/StanfordMIMI/MedVAE.git
 cd medvae
 pip install -e .[dev]
+pre-commit install
+pre-commit
 ```
 
-## 🚀 Usage Instructions
+## 🚀 Inference Instructions
 
 ```python
 import torch
@@ -52,6 +54,36 @@ medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -mod
 ```
 
 For more information, please check our [inference documentation](/documentation/inference.md) and [demo](documentation/demo.ipynb).
+
+## 🔧 Finetuning Instructions
+
+Easily finetune MedVAE on **your own dataset**! Follow the instructions below (requires Python 3.9 and cloning the repository).
+
+Run the following commands depending on your finetuning scenario:
+
+**Stage 1 (2D) Finetuning**
+
+```bash
+medvae_finetune experiment=medvae_4x_1c_2d_finetuning
+```
+
+**Stage 2 (2D) Finetuning:**
+
+```bash
+medvae_finetune_s2 experiment=medvae_4x_1c_2d_s2_finetuning
+```
+
+**Stage 2 (3D) Finetuning:**
+
+```bash
+medvae_finetune experiment=medvae_4x_1c_3d_finetuning
+```
+
+This setup supports multi-GPU training and includes integration with Weights & Biases for experiment tracking.
+
+For detailed finetuning guidelines, see the [Finetuning Documentation](documentation/finetune.md).
+
+To create classification models using downsized latent representations, refer to the [Classification Documentation](documentation/classification.md).
 
 ## 📎 Citation
 

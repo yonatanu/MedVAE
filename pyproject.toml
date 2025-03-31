@@ -1,6 +1,6 @@
 [project]
 name = "medvae"
-version = "0.0.6"
+version = "0.0.7"
 requires-python = ">=3.9"
 description = "MedVAE is a family of six medical image autoencoders that can encode high-dimensional medical images into latent representations."
 readme = "README.md"
@@ -78,6 +78,7 @@ repository = "https://github.com/StanfordMIMI/MedVAE"
 medvae_inference = "medvae.medvae_inference:main"
 medvae_finetune = "medvae.medvae_finetune:main"
 medvae_finetune_s2 = "medvae.medvae_finetune_s2:main"
+medvae_classify = "medvae.medvae_cls:main"
 
 [project.optional-dependencies]
 dev = [

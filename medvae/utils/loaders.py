@@ -13,6 +13,8 @@ import torch.nn.functional as F
 from monai.transforms import Transform
 import torchvision
 from PIL import Image
+import polars as pl
+import numpy as np
 
 
 class MonaiNormalize(Transform):
@@ -222,3 +224,27 @@ def load_ct_3d_finetune(path: str, dtype: torch.dtype = torch.float32, **kwargs)
     except Exception as e:
         print(f"Error in loading {path} with error: {e}")
         return torch.zeros((1, 64, 64, 64))
+
+
+def load_labels(
+    df: pl.DataFrame,
+    dtype: np.dtype = None,
+    # fill_null=None,
+    fill_nan: float = None,
+    squeeze: int = None,
+) -> torch.Tensor:
+    """Load the labels from a dataframe."""
+    # BUG: Polars hangs when trying to convert to numpy in a DataLoader
+    x = df.to_pandas().to_numpy()
+    if dtype is not None:
+        x = x.astype(dtype)
+
+    if isinstance(squeeze, int):
+        out = torch.from_numpy(x).squeeze(dim=squeeze)
+    else:
+        out = torch.from_numpy(x).squeeze()
+
+    if isinstance(fill_nan, float):
+        out = torch.where(out.isnan(), fill_nan, out)
+
+    return out
