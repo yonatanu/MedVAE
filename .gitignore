@@ -63,6 +63,7 @@ coverage.xml
 
 # Data files
 data/
+medvae/data/
 
 # Log files
 logs/
