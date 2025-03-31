@@ -61,7 +61,6 @@ dependencies = [
     "nilearn",
     "pyrootutils",
     "hydra-core",
-    "lora-diffusion@git+https://github.com/cloneofsimo/lora.git",
     "torchmetrics",
     "hydra-colorlog",
     "open_clip_torch==2.24.0",
