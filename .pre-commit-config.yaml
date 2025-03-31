@@ -10,3 +10,10 @@ repos:
     # Run the formatter.
     - id: ruff-format
       types_or: [ python, pyi ]
+
+- repo: https://github.com/executablebooks/mdformat
+  rev: 0.7.13 # Use the ref you want to point at
+  hooks:
+    - id: mdformat
+      additional_dependencies:
+        - mdformat-ruff
