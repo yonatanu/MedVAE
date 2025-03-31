@@ -113,6 +113,11 @@ medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -mod
 ## Troubleshooting Tips
 
 - If you encounter a `state_dict` warning during checkpoint loading, simply wrap your checkpoint weights within a dictionary under the `'state_dict'` key.
+- Creating a separate conda environment will help debugging considerably. Especially with hydra / accelerate configurations.
+- Input to the VAEs will need to be normalized between \[-1, 1\]. The already provided dataloaders handle this.
+- The discriminator currently starts after 3125 steps. If you want it to start earlier, you can adjust it in the main config experiment file. We set it to 3125 for our batch sizes, which was 32. Typically, the discriminator can discriminate pretty quickly, so that is why you set it to train a bit later after the model has finetuned for a bit. The discriminator is randomly initialized based on a small distribution (ln 236 in vae_losses; line 70 in loss components).
+- We recommend maintaining gradient accumulation as 1 for numerical stability.
+- Do not worry if the L1 loss (reconstruction) and perceptual loss are wildly different. They are on different scales, but this should not affect the backprop, since the gradient directions would stay the same.
 
 ## Support
 
