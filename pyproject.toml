@@ -81,9 +81,9 @@ medvae_finetune_s2 = "medvae.medvae_finetune_s2:main"
 
 [project.optional-dependencies]
 dev = [
-    "black",
     "ruff",
-    "pre-commit"
+    "pre-commit",
+    "mdformat"
 ]
 
 [build-system]

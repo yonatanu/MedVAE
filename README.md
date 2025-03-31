@@ -1,5 +1,6 @@
 # MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders
-[![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAE)&nbsp;&nbsp;&nbsp;&nbsp;[![pypi](https://img.shields.io/pypi/v/medvae?style=for-the-badge)](https://pypi.org/project/medvae/)&nbsp;&nbsp;&nbsp;&nbsp;[![arXiv](https://img.shields.io/badge/arXiv-2502.14753-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2502.14753)&nbsp;&nbsp;&nbsp;&nbsp;[![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
+
+[![Hugging Face](https://huggingface.co/datasets/huggingface/badges/resolve/main/model-on-hf-md.svg)](https://huggingface.co/stanfordmimi/MedVAE)    [![pypi](https://img.shields.io/pypi/v/medvae?style=for-the-badge)](https://pypi.org/project/medvae/)    [![arXiv](https://img.shields.io/badge/arXiv-2502.14753-b31b1b.svg?style=for-the-badge)](https://arxiv.org/abs/2502.14753)    [![License](https://img.shields.io/github/license/stanfordmimi/medvae?style=for-the-badge)](LICENSE)
 
 This repository contains the official PyTorch implementation for [MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders](https://arxiv.org/abs/2502.14753).
 
@@ -18,6 +19,7 @@ pip install medvae
 ```
 
 For an editable installation, use the following commands to clone and install this repository.
+
 ```python
 git clone https://github.com/StanfordMIMI/MedVAE.git
 cd medvae
@@ -31,17 +33,16 @@ import torch
 from medvae import MVAE
 
 fpath = "documentation/data/mmg_data/isJV8hQ2hhJsvEP5rdQNiy.png"
-device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-model = MVAE(model_name='medvae_4_3_2d', modality='xray').to(device)
+model = MVAE(model_name="medvae_4_3_2d", modality="xray").to(device)
 img = model.apply_transform(fpath).to(device)
 
 model.requires_grad_(False)
 model.eval()
 
 with torch.no_grad():
-  latent = model(img)
-
+    latent = model(img)
 ```
 
 We also developed an easy-to-use CLI inference tool for compressing your high-dimensional medical images into usable latents:
@@ -53,6 +54,7 @@ medvae_inference -i INPUT_FOLDER -o OUTPUT_FOLDER -model_name MED_VAE_MODEL -mod
 For more information, please check our [inference documentation](/documentation/inference.md) and [demo](documentation/demo.ipynb).
 
 ## 📎 Citation
+
 If you find this repository useful for your work, please cite the following paper:
 
 ```bibtex
