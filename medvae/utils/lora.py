@@ -369,7 +369,7 @@ def inject_trainable_lora(
     require_grad_params = []
     names = []
 
-    if loras != None:
+    if loras is not None:
         loras = torch.load(loras)
 
     for _module, name, _child_module in _find_modules(
@@ -399,7 +399,7 @@ def inject_trainable_lora(
         require_grad_params.append(_module._modules[name].lora_up.parameters())
         require_grad_params.append(_module._modules[name].lora_down.parameters())
 
-        if loras != None:
+        if loras is not None:
             _module._modules[name].lora_up.weight = loras.pop(0)
             _module._modules[name].lora_down.weight = loras.pop(0)
 
@@ -423,7 +423,7 @@ def inject_trainable_lora_extended(
     require_grad_params = []
     names = []
 
-    if loras != None:
+    if loras is not None:
         loras = torch.load(loras)
 
     for _module, name, _child_module in _find_modules(
@@ -488,7 +488,7 @@ def inject_trainable_lora_extended(
         require_grad_params.append(_module._modules[name].lora_up.parameters())
         require_grad_params.append(_module._modules[name].lora_down.parameters())
 
-        if loras != None:
+        if loras is not None:
             _module._modules[name].lora_up.weight = loras.pop(0)
             _module._modules[name].lora_down.weight = loras.pop(0)
 
@@ -670,7 +670,8 @@ def parse_safeloras(
     loras = {}
     metadata = safeloras.metadata()
 
-    get_name = lambda k: k.split(":")[0]
+    def get_name(k):
+        return k.split(":")[0]
 
     keys = list(safeloras.keys())
     keys.sort(key=get_name)
@@ -1032,7 +1033,7 @@ def apply_learned_embed_in_clip(
         embeds = learned_embeds[token]
 
         # cast to dtype of text_encoder
-        dtype = text_encoder.get_input_embeddings().weight.dtype
+        # dtype = text_encoder.get_input_embeddings().weight.dtype
         num_added_tokens = tokenizer.add_tokens(token)
 
         i = 1
