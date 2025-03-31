@@ -1,5 +1,5 @@
 name: Mdformat Action
-on: [ push, pull_request ]
+on: [ pull_request ]
 jobs:
   mdformat:
     name: Mdformat Action
