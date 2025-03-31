@@ -119,7 +119,7 @@ class AutoencoderKL(torch.nn.Module):
         )
         if decode:
             dec = checkpoint(self.decode, z, use_reentrant=False)
-            return dec, posterior, latent
+            return dec, posterior, z
         else:
             return z, posterior, latent
 

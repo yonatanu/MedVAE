@@ -70,6 +70,17 @@ with torch.no_grad():
     latent = model(img)
 ```
 
+## Obtain Decoded Representations
+
+To obtain the decoded representations, you can set `decode = True` when calling the forward method of the `MVAE` class. Here's an example of how to use it:
+
+```python
+with torch.no_grad():
+    decoded_img, latent = model(img, decode=True)
+```
+
+The `decoded_img` variable will contain the decoded image, and the `latent` variable will contain the latent representation of the input image.
+
 ## 🖥️ CLI Usage
 
 The CLI script runs inference using MedVAE, processing 2D or 3D medical images to generate latent representations. It allows users to specify a pretrained MedVAE model and input modalities (X-ray, CT, MRI). Given an input directory, it will process all the medical images into latent representations and save them in the specified folder.
