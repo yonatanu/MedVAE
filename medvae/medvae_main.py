@@ -44,6 +44,9 @@ class MVAE(torch.nn.Module):
         
     def get_transform(self):
         return self.transform
+    
+    def init_from_ckpt(self, ckpt_path: str, state_dict: bool = True):
+        self.model.init_from_ckpt(ckpt_path, state_dict=state_dict)
 
     def forward(self, img: torch.tensor):
         

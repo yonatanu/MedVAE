@@ -5,7 +5,15 @@ from medvae.utils.vae.distributions import DiagonalGaussianDistribution
 
 
 class AutoencoderKL(torch.nn.Module):
-    def __init__(self, ddconfig, embed_dim, ckpt_path=None, ignore_keys=[], apply_channel_ds=True):
+    def __init__(
+        self,
+        ddconfig,
+        embed_dim,
+        ckpt_path=None,
+        ignore_keys=[],
+        apply_channel_ds=True,
+        state_dict=True,
+    ):
         super().__init__()
         self.encoder = Encoder(**ddconfig)
         self.decoder = Decoder(**ddconfig)
@@ -26,10 +34,15 @@ class AutoencoderKL(torch.nn.Module):
             self.channel_proj = torch.nn.Conv2d(self.embed_dim, self.embed_dim, 1)
 
         if ckpt_path is not None:
-            self.init_from_ckpt(ckpt_path, ignore_keys=ignore_keys)
+            self.init_from_ckpt(
+                ckpt_path, ignore_keys=ignore_keys, state_dict=state_dict
+            )
 
-    def init_from_ckpt(self, path, ignore_keys=list()):
-        sd = torch.load(path, map_location="cpu")["state_dict"]
+    def init_from_ckpt(self, path, ignore_keys=list(), state_dict=True):
+        if not state_dict:
+            sd = torch.load(path, map_location="cpu")
+        else:
+            sd = torch.load(path, map_location="cpu")["state_dict"]
         keys = list(sd.keys())
         for k in keys:
             for ik in ignore_keys:
@@ -43,13 +56,13 @@ class AutoencoderKL(torch.nn.Module):
         if len(missing) > 0:
             print(f"Missing Keys: {missing}")
             print(f"Unexpected Keys: {unexpected}")
-            
+
     def encode_moments(self, x):
         h = self.encoder(x)
         moments = self.quant_conv(h)
         posterior = DiagonalGaussianDistribution(moments)
         return moments, posterior
-    
+
     def moment_diagonal(self, moments):
         return DiagonalGaussianDistribution(moments)
 

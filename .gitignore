@@ -27,6 +27,8 @@ share/python-wheels/
 *.egg
 MANIFEST
 metrics/
+!configs/metrics/
+!medvae/metrics/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -52,9 +54,16 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
+# Remove data file
+/medvae/data/
 
 # Environment files
 *.env
+*.vscode
 
 # Data files
 data/
+
+# Log files
+logs/
+*.log

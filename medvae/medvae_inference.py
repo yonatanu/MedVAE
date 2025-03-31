@@ -35,8 +35,14 @@ def parse_arguments():
                 "(6) medvae_8_1_3d: 3D images with an 8x compression in each dim (64x total) with a 1 channel latent.\n"
             )
         )
+    
     parser.add_argument('-modality', type=str, required=True,
                         help='Modality of the input images. Choose between xray, ct, or mri.')
+    
+    parser.add_argument('-ckpt_path', type=str, required=False,
+                        help='Path to the checkpoint file. If provided, the model will be loaded from the weight in this file.' + 
+                        'Note: This should be a ckpt after stage 2 2D and 3D finetuning. If you want stage 1, then modification need to be made')
+    
     parser.add_argument('-roi_size', type=int, default=160, required=False,
                         help='Region of interest size for 3D models. This is the maximum dimension size allowed for processing on the GPU.')
     
@@ -48,7 +54,9 @@ def parse_arguments():
     # Print a message to cite the medvae paper
     cite_function()
     
-    args = parser.parse_args()
+    args, unknownargs = parser.parse_known_args()
+    if unknownargs:
+        print(f"Ignoring arguments: {unknownargs}")
     
     # Check if input folder exists
     assert isdir(args.i), f"Input folder {args.i} does not exist."
@@ -80,6 +88,11 @@ def __init__():
     
     # Build the model and transform
     model = MVAE(args.model_name, args.modality, args.roi_size).to(device)
+    
+    # If a checkpoint path is provided, load the model from the weight in this file
+    if args.ckpt_path:
+        model.init_from_ckpt(args.ckpt_path, state_dict=False)
+        
     model.requires_grad_(False)
     model.eval()
         

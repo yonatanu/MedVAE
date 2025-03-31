@@ -1,5 +1,3 @@
-import math
-
 import numpy as np
 import torch
 import torch.nn as nn
@@ -41,7 +39,9 @@ class Encoder(nn.Module):
         self.in_channels = in_channels
 
         # downsampling
-        self.conv_in = torch.nn.Conv3d(in_channels, self.ch, kernel_size=3, stride=1, padding=1)
+        self.conv_in = torch.nn.Conv3d(
+            in_channels, self.ch, kernel_size=3, stride=1, padding=1
+        )
 
         curr_res = resolution
         in_ch_mult = (1,) + tuple(ch_mult)
@@ -106,12 +106,20 @@ class Encoder(nn.Module):
         hs = [checkpoint(self.conv_in, x, use_reentrant=False)]
         for i_level in range(self.num_resolutions):
             for i_block in range(self.num_res_blocks):
-                h = checkpoint(self.down[i_level].block[i_block], hs[-1], temb, use_reentrant=False)
+                h = checkpoint(
+                    self.down[i_level].block[i_block], hs[-1], temb, use_reentrant=False
+                )
                 if len(self.down[i_level].attn) > 0:
-                    h = checkpoint(self.down[i_level].attn[i_block], h, use_reeentrant=False)
+                    h = checkpoint(
+                        self.down[i_level].attn[i_block], h, use_reeentrant=False
+                    )
                 hs.append(h)
             if i_level != self.num_resolutions - 1:
-                hs.append(checkpoint(self.down[i_level].downsample, hs[-1], use_reentrant=False))
+                hs.append(
+                    checkpoint(
+                        self.down[i_level].downsample, hs[-1], use_reentrant=False
+                    )
+                )
 
         # middle
         h = hs[-1]
@@ -159,7 +167,7 @@ class Decoder(nn.Module):
         self.tanh_out = tanh_out
 
         # compute in_ch_mult, block_in and curr_res at lowest res
-        in_ch_mult = (1,) + tuple(ch_mult)
+        # in_ch_mult = (1,) + tuple(ch_mult)
         block_in = ch * ch_mult[self.num_resolutions - 1]
         curr_res = resolution // 2 ** (self.num_resolutions - 1)
         self.z_shape = (1, z_channels, curr_res, curr_res)
@@ -170,7 +178,9 @@ class Decoder(nn.Module):
         )
 
         # z to block_in
-        self.conv_in = torch.nn.Conv3d(z_channels, block_in, kernel_size=3, stride=1, padding=1)
+        self.conv_in = torch.nn.Conv3d(
+            z_channels, block_in, kernel_size=3, stride=1, padding=1
+        )
 
         # middle
         self.mid = nn.Module()
@@ -216,7 +226,9 @@ class Decoder(nn.Module):
 
         # end
         self.norm_out = Normalize(block_in)
-        self.conv_out = torch.nn.Conv3d(block_in, out_ch, kernel_size=3, stride=1, padding=1)
+        self.conv_out = torch.nn.Conv3d(
+            block_in, out_ch, kernel_size=3, stride=1, padding=1
+        )
 
     def forward(self, z):
         # assert z.shape[1:] == self.z_shape[1:]
@@ -236,9 +248,13 @@ class Decoder(nn.Module):
         # upsampling
         for i_level in reversed(range(self.num_resolutions)):
             for i_block in range(self.num_res_blocks + 1):
-                h = checkpoint(self.up[i_level].block[i_block], h, temb, use_reentrant=False)
+                h = checkpoint(
+                    self.up[i_level].block[i_block], h, temb, use_reentrant=False
+                )
                 if len(self.up[i_level].attn) > 0:
-                    h = checkpoint(self.up[i_level].attn[i_block], h, use_reentrant=False)
+                    h = checkpoint(
+                        self.up[i_level].attn[i_block], h, use_reentrant=False
+                    )
             if i_level != 0:
                 h = checkpoint(self.up[i_level].upsample, h, use_reentrant=False)
 
@@ -274,7 +290,9 @@ class LinearAttention(nn.Module):
         k = k.softmax(dim=-1)
         context = torch.einsum("bhdn,bhen->bhde", k, v)
         out = torch.einsum("bhde,bhdn->bhen", context, q)
-        out = rearrange(out, "b heads c (h w) -> b (heads c) h w", heads=self.heads, h=h, w=w)
+        out = rearrange(
+            out, "b heads c (h w) -> b (heads c) h w", heads=self.heads, h=h, w=w
+        )
         return self.to_out(out)
 
 
@@ -346,9 +364,15 @@ class AttnBlock(nn.Module):
         self.in_channels = in_channels
 
         self.norm = Normalize(in_channels)
-        self.q = torch.nn.Conv3d(in_channels, in_channels, kernel_size=1, stride=1, padding=0)
-        self.k = torch.nn.Conv3d(in_channels, in_channels, kernel_size=1, stride=1, padding=0)
-        self.v = torch.nn.Conv3d(in_channels, in_channels, kernel_size=1, stride=1, padding=0)
+        self.q = torch.nn.Conv3d(
+            in_channels, in_channels, kernel_size=1, stride=1, padding=0
+        )
+        self.k = torch.nn.Conv3d(
+            in_channels, in_channels, kernel_size=1, stride=1, padding=0
+        )
+        self.v = torch.nn.Conv3d(
+            in_channels, in_channels, kernel_size=1, stride=1, padding=0
+        )
         self.proj_out = torch.nn.Conv3d(
             in_channels, in_channels, kernel_size=1, stride=1, padding=0
         )
@@ -382,7 +406,13 @@ class AttnBlock(nn.Module):
 
 class ResnetBlock(nn.Module):
     def __init__(
-        self, *, in_channels, out_channels=None, conv_shortcut=False, dropout, temb_channels=512
+        self,
+        *,
+        in_channels,
+        out_channels=None,
+        conv_shortcut=False,
+        dropout,
+        temb_channels=512,
     ):
         super().__init__()
         self.in_channels = in_channels
@@ -391,7 +421,9 @@ class ResnetBlock(nn.Module):
         self.use_conv_shortcut = conv_shortcut
 
         self.norm1 = Normalize(in_channels)
-        self.conv1 = torch.nn.Conv3d(in_channels, out_channels, kernel_size=3, stride=1, padding=1)
+        self.conv1 = torch.nn.Conv3d(
+            in_channels, out_channels, kernel_size=3, stride=1, padding=1
+        )
         if temb_channels > 0:
             self.temb_proj = torch.nn.Linear(temb_channels, out_channels)
         self.norm2 = Normalize(out_channels)

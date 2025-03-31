@@ -1,3 +1,4 @@
-from medvae.medvae import MVAE
+from medvae.medvae_main import MVAE
+from medvae import losses
 
-__all__ = ["MVAE"]
+__all__ = ["MVAE", "losses"]
