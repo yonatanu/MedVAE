@@ -12,11 +12,8 @@ class AutoencoderKL(torch.nn.Module):
         ckpt_path=None,
         ignore_keys=[],
         apply_channel_ds=True,
-<<<<<<< HEAD
         state_dict=True,
-=======
         dup_loaded_weights=False,
->>>>>>> 48a7be7 (enable training of a complex vae)
     ):
         super().__init__()
         self.encoder = Encoder(**ddconfig)
@@ -39,16 +36,6 @@ class AutoencoderKL(torch.nn.Module):
 
         if ckpt_path is not None:
             self.init_from_ckpt(
-<<<<<<< HEAD
-                ckpt_path, ignore_keys=ignore_keys, state_dict=state_dict
-            )
-
-    def init_from_ckpt(self, path, ignore_keys=list(), state_dict=True):
-        if not state_dict:
-            sd = torch.load(path, map_location="cpu")
-        else:
-            sd = torch.load(path, map_location="cpu")["state_dict"]
-=======
                 ckpt_path,
                 ignore_keys=ignore_keys,
                 dup_loaded_weights=dup_loaded_weights,
@@ -56,7 +43,6 @@ class AutoencoderKL(torch.nn.Module):
 
     def init_from_ckpt(self, path, ignore_keys=list(), dup_loaded_weights=False):
         sd = torch.load(path, map_location="cpu")["state_dict"]
->>>>>>> 48a7be7 (enable training of a complex vae)
         keys = list(sd.keys())
         for k in keys:
             for ik in ignore_keys:

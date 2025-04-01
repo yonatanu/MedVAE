@@ -11,7 +11,7 @@ train:
         split_column: split
         split_name: train
         data_dir: ${paths.data_dir}/oasis/
-        dataset_id: 0
+        dataset_id: 1
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -27,7 +27,7 @@ train:
         split_column: split
         split_name: train
         data_dir: ${paths.data_dir}/bruno/
-        dataset_id: 0
+        dataset_id: 2
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -41,7 +41,7 @@ train:
         split_column: split
         split_name: train
         data_dir: ${paths.data_dir}/bruno_dicoms/
-        dataset_id: 0
+        dataset_id: 3
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -61,7 +61,7 @@ valid:
         split_column: split
         split_name: val
         data_dir: ${paths.data_dir}/oasis/
-        dataset_id: 0
+        dataset_id: 4
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -76,7 +76,7 @@ valid:
         split_column: split
         split_name: val
         data_dir: ${paths.data_dir}/bruno/
-        dataset_id: 0
+        dataset_id: 5
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -90,7 +90,7 @@ valid:
         split_column: split
         split_name: val
         data_dir: ${paths.data_dir}/bruno_dicoms/
-        dataset_id: 0
+        dataset_id: 6
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -110,7 +110,7 @@ test:
         split_column: split
         split_name: test
         data_dir: ${paths.data_dir}/oasis/
-        dataset_id: 0
+        dataset_id: 7
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -125,7 +125,7 @@ test:
         split_column: split
         split_name: test
         data_dir: ${paths.data_dir}/bruno/
-        dataset_id: 0
+        dataset_id: 8
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -139,7 +139,7 @@ test:
         split_column: split
         split_name: test
         data_dir: ${paths.data_dir}/bruno_dicoms/
-        dataset_id: 0
+        dataset_id: 9
         img_column: image_uuid
         img_suffix: .npy
         img_transform:

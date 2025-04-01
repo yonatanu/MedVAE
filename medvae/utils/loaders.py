@@ -6,24 +6,19 @@ from monai.transforms import (
     ScaleIntensity,
     CropForeground,
     ScaleIntensityRange,
-<<<<<<< HEAD
     RandSpatialCrop,
-=======
     Lambda,
     Resize,
     ScaleIntensityRangePercentiles,
     CenterSpatialCrop,
->>>>>>> 48a7be7 (enable training of a complex vae)
+    SpatialPad,
 )
 import torch
 import torch.nn.functional as F
 from monai.transforms import Transform
 import torchvision
 from PIL import Image
-<<<<<<< HEAD
 import polars as pl
-=======
->>>>>>> 48a7be7 (enable training of a complex vae)
 import numpy as np
 
 
@@ -82,7 +77,6 @@ def load_2d(
         lazy=True,
     )
 
-<<<<<<< HEAD
     try:
         img = img_transforms(path).as_tensor()
 
@@ -113,14 +107,6 @@ def load_2d_finetune(
         img = img_transforms(path).as_tensor()
         if merge_channels:
             img = img.mean(0, keepdim=True)
-=======
-    try:
-        img = img_transforms(path).as_tensor()
-
-        if merge_channels:
-            img = img.mean(0, keepdim=True)
-
->>>>>>> 48a7be7 (enable training of a complex vae)
         return img
     except Exception as e:
         print(f"Error in loading {path} with error: {e}")
