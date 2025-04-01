@@ -35,6 +35,14 @@ FILE_DICT_ASSOCIATIONS = {
         "config": "model_weights/medvae_8x1.yaml",
         "ckpt": "model_weights/vae_8x_1c_3D.ckpt",
     },
+<<<<<<< HEAD
+=======
+    # New for complex data!
+    "medvae_4_4_2d_c": {
+        "config": "model_weights/medvae_4x4.yaml",
+        "ckpt": "model_weights/vae_4x_4c_2D.ckpt",
+    },
+>>>>>>> 48a7be7 (enable training of a complex vae)
 }
 
 """ 
@@ -58,19 +66,35 @@ def build_model(
     ckpt_fpath: str,
     training: bool = False,
     existing_weight: str = None,
+<<<<<<< HEAD
     state_dict: bool = True,
+=======
+>>>>>>> 48a7be7 (enable training of a complex vae)
 ):
     if (
         model_name == "medvae_4_1_2d"
         or model_name == "medvae_8_1_2d"
         or model_name == "medvae_4_4_2d"
+<<<<<<< HEAD
     ):
         conf = OmegaConf.load(config_fpath)
+=======
+        or model_name == "medvae_4_4_2d_c"
+    ):
+        conf = OmegaConf.load(config_fpath)
+        if model_name == "medvae_4_4_2d_c":
+            conf["ddconfig"]["in_channels"] = 2
+            conf["ddconfig"]["out_ch"] = 2
+>>>>>>> 48a7be7 (enable training of a complex vae)
         model = AutoencoderKL_2D(
             ddconfig=conf.ddconfig,
             embed_dim=conf.embed_dim,
             ckpt_path=ckpt_fpath if existing_weight is None else existing_weight,
+<<<<<<< HEAD
             state_dict=state_dict,
+=======
+            dup_loaded_weights=(model_name == "medvae_4_4_2d_c"),
+>>>>>>> 48a7be7 (enable training of a complex vae)
         )
     elif model_name == "medvae_4_3_2d" or model_name == "medvae_8_4_2d":
         conf = OmegaConf.load(config_fpath)
@@ -98,19 +122,29 @@ def build_model(
                 model, {"ResnetBlock", "AttnBlock"}, r=4
             )
 
+<<<<<<< HEAD
         model.init_from_ckpt(
             ckpt_fpath if existing_weight is None else existing_weight,
             state_dict=state_dict,
         )
     elif model_name == "medvae_4_1_3d" or model_name == "medvae_8_1_3d":
+=======
+        model.init_from_ckpt(ckpt_fpath if existing_weight is None else existing_weight)
+    elif model_name == "medvae_4_1_3d" or model_name == "medvae_8_1_3d":
+
+>>>>>>> 48a7be7 (enable training of a complex vae)
         conf = OmegaConf.load(config_fpath)
         model = AutoencoderKL_3D(
             ddconfig=conf.ddconfig,
             embed_dim=conf.embed_dim,
         )
         model.init_from_ckpt(
+<<<<<<< HEAD
             ckpt_fpath if existing_weight is None else existing_weight,
             state_dict=state_dict,
+=======
+            ckpt_fpath if existing_weight is None else existing_weight, state_dict=True
+>>>>>>> 48a7be7 (enable training of a complex vae)
         )
 
     return model
@@ -170,12 +204,16 @@ Create a model from a model name
 """
 
 
+<<<<<<< HEAD
 def create_model(
     model_name: str,
     existing_weight: str = None,
     training: bool = True,
     state_dict: bool = True,
 ):
+=======
+def create_model(model_name: str, existing_weight: str = None):
+>>>>>>> 48a7be7 (enable training of a complex vae)
     # Check if model_name is in FILE_DICT_ASSOCIATIONS
     if model_name not in FILE_DICT_ASSOCIATIONS:
         raise ValueError(f"Model name {model_name} not found in FILE_DICT_ASSOCIATIONS")
@@ -189,9 +227,14 @@ def create_model(
         model_name,
         config_fpath,
         ckpt_fpath,
+<<<<<<< HEAD
         training=training,
         existing_weight=existing_weight,
         state_dict=state_dict,
+=======
+        training=True,
+        existing_weight=existing_weight,
+>>>>>>> 48a7be7 (enable training of a complex vae)
     )
 
     return model

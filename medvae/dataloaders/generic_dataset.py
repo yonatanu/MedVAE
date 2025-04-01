@@ -88,11 +88,18 @@ class GenericDataset(Dataset):
 
         # Generate image paths
         if img_column is not None:
+<<<<<<< HEAD
             self.samples["img"] = (
                 self.df.get_column(img_column)
                 .apply(lambda x: os.path.join(self.img_dir, f"{x}{img_suffix or ''}"))
                 .to_list()
             )
+=======
+            self.samples["img"] = [
+                os.path.join(self.img_dir, f"{x}{img_suffix or ''}")
+                for x in self.df.get_column(img_column).to_list()
+            ]
+>>>>>>> 48a7be7 (enable training of a complex vae)
             
         # Extract the columns with labels
         if lbl_columns is not None:

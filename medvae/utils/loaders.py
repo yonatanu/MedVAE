@@ -6,14 +6,24 @@ from monai.transforms import (
     ScaleIntensity,
     CropForeground,
     ScaleIntensityRange,
+<<<<<<< HEAD
     RandSpatialCrop,
+=======
+    Lambda,
+    Resize,
+    ScaleIntensityRangePercentiles,
+    CenterSpatialCrop,
+>>>>>>> 48a7be7 (enable training of a complex vae)
 )
 import torch
 import torch.nn.functional as F
 from monai.transforms import Transform
 import torchvision
 from PIL import Image
+<<<<<<< HEAD
 import polars as pl
+=======
+>>>>>>> 48a7be7 (enable training of a complex vae)
 import numpy as np
 
 
@@ -72,6 +82,7 @@ def load_2d(
         lazy=True,
     )
 
+<<<<<<< HEAD
     try:
         img = img_transforms(path).as_tensor()
 
@@ -102,10 +113,145 @@ def load_2d_finetune(
         img = img_transforms(path).as_tensor()
         if merge_channels:
             img = img.mean(0, keepdim=True)
+=======
+    try:
+        img = img_transforms(path).as_tensor()
+
+        if merge_channels:
+            img = img.mean(0, keepdim=True)
+
+>>>>>>> 48a7be7 (enable training of a complex vae)
         return img
     except Exception as e:
         print(f"Error in loading {path} with error: {e}")
         return torch.zeros((1, 384, 384))
+
+
+def load_2d_four_channel(
+    path: str, dtype: torch.dtype = torch.float32, merge_channels: bool = True, **kwargs
+):
+    img_transforms = Compose(
+        transforms=[
+            MonaiImageOpen(),
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Resize((384, 384), interpolation=3, antialias=True),
+            ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+            MonaiNormalize(mean=[0.5], std=[0.5]),
+        ],
+        lazy=True,
+    )
+
+    try:
+        img = img_transforms(path).as_tensor()
+        if merge_channels:
+            img = img.mean(0, keepdim=True)
+        return img
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((1, 384, 384))
+
+
+def load_oasis(
+    path: str, dtype: torch.dtype = torch.float32, return_2_ch: bool = True, **kwargs
+):
+    specific_crop = Lambda(func=lambda x: x[..., 15:180, 30:220])
+    crop_transform = CenterSpatialCrop(roi_size=(192, 272))
+    transforms_list = [
+        LoadImage(),
+        crop_transform,
+        SpatialPad(spatial_size=(192, 272), mode="edge"),
+        specific_crop,
+        SpatialPad(spatial_size=(190, 190), mode="edge"),
+        Resize(
+            spatial_size=(256, 256), mode="bilinear"
+        ),  # NOTE: this distorts the image unless its already square
+        ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+        # MonaiNormalize(mean=[0.5], std=[0.5]),
+    ]
+    img_transforms = Compose(
+        transforms=transforms_list,
+        lazy=True,
+    )
+
+    try:
+        img = img_transforms(path).as_tensor()
+        if return_2_ch:
+            full_im = torch.zeros((2, 256, 256), dtype=img.dtype)
+            full_im[0, :, :] = img[0, :, :]
+            return full_im
+        else:
+            return img
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((2, 256, 256))
+
+
+def load_bruno_dicoms(
+    path: str, dtype: torch.dtype = torch.float32, return_2_ch: bool = True, **kwargs
+):
+    transforms_list = [
+        LoadImage(),
+        EnsureChannelFirst(channel_dim="no_channel"),
+        Resize(spatial_size=(256, 256), mode="bilinear"),
+        ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+        # MonaiNormalize(mean=[0.5], std=[0.5]),
+    ]
+    img_transforms = Compose(
+        transforms=transforms_list,
+        lazy=True,
+    )
+
+    try:
+        img = img_transforms(path).as_tensor()
+        if return_2_ch:
+            full_im = torch.zeros((2, 256, 256), dtype=img.dtype)
+            full_im[0, :, :] = img[0, :, :]
+            return full_im
+        return img
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((2, 256, 256))
+
+
+class LoadComplexImage(Transform):
+    """
+    Custom transform to load an image while preserving its complex data.
+    This example assumes the image is stored in a numpy file (.npy).
+    Adjust the loading logic if your file format differs.
+    """
+
+    def __call__(self, path: str):
+        data = np.load(path)
+        if not np.iscomplexobj(data):
+            raise ValueError(f"Data in {path} is not complex.")
+        data = data / np.max(np.abs(data))
+        data = np.concatenate((data.real[np.newaxis], data.imag[np.newaxis]), axis=0)
+        data = torch.from_numpy(data)
+        return data
+
+
+def load_bruno(
+    path: str, dtype: torch.dtype = torch.float32, merge_channels: bool = True, **kwargs
+):
+    transforms_list = [
+        LoadComplexImage(),  # custom loader that preserves complex values
+        Resize(
+            spatial_size=(256, 256), mode="bilinear"
+        ),  # may distort image if not square
+    ]
+
+    img_transforms = Compose(
+        transforms=transforms_list,
+        lazy=True,
+    )
+
+    try:
+        img = img_transforms(path).as_tensor().type(dtype)
+
+        return img
+    except Exception as e:
+        print(f"Error in loading {path} with error: {e}")
+        return torch.zeros((2, 256, 256), dtype=dtype)
 
 
 """

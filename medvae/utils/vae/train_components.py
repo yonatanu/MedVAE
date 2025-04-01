@@ -9,6 +9,10 @@ from torch import nn
 from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 from torchmetrics import Metric
+<<<<<<< HEAD
+=======
+import wandb
+>>>>>>> 48a7be7 (enable training of a complex vae)
 
 from medvae.utils.extras import get_weight_dtype
 from medvae.utils.transforms import to_dict
@@ -16,6 +20,16 @@ from medvae.utils.transforms import to_dict
 __all__ = ["training_epoch", "validation_epoch"]
 
 
+<<<<<<< HEAD
+=======
+def wandb_norm(tensor):
+    # Avoid division by zero: if max is zero, use 1.0
+    tensor = tensor - tensor.min()
+    tensor = tensor / tensor.max() if tensor.max() != 0 else 1.0
+    return tensor
+
+
+>>>>>>> 48a7be7 (enable training of a complex vae)
 def training_epoch(
     epoch: int,
     global_step: int,
@@ -37,6 +51,7 @@ def training_epoch(
     for _, metric in rec_metrics:
         metric.reset()
 
+<<<<<<< HEAD
     if len(default_metrics) == 6:
         (
             metric_aeloss,
@@ -54,6 +69,15 @@ def training_epoch(
             metric_data,
             metric_batch,
         ) = default_metrics
+=======
+    (
+        metric_aeloss,
+        metric_discloss,
+        metric_ae_recloss,
+        metric_data,
+        metric_batch,
+    ) = default_metrics
+>>>>>>> 48a7be7 (enable training of a complex vae)
 
     model.train()
     epoch_start, batch_start = time(), time()
@@ -115,6 +139,7 @@ def training_epoch(
         metric_discloss.update(discloss)
         metric_data.update(data_time)
         metric_batch.update(batch_time)
+<<<<<<< HEAD
         if "train/bc_loss" in log_dict_ae:
             metric_bc_loss.update(log_dict_ae["train/bc_loss"])
 
@@ -126,13 +151,47 @@ def training_epoch(
         bc_print = ""
         if "train/bc_loss" in log_dict_ae:
             bc_print = f"BC Loss: {log_dict_ae['train/bc_loss'].item():.3f} ({metric_bc_loss.compute():.3f}) - "
+=======
+
+        images, reconstructions = accelerator.gather_for_metrics(
+            (images, reconstructions)
+        )
+        for _, metric in rec_metrics:
+            metric.update(images, reconstructions)
+
+        if options.get("is_logging", False) and i == 0:
+            input_images = (
+                images[:4, 0].detach().cpu() + 1j * images[:4, 1].detach().cpu()
+            )
+            reconstruction_images = (
+                reconstructions[:4, 0].detach().cpu()
+                + 1j * reconstructions[:4, 1].detach().cpu()
+            )
+            input_images = torch.abs(input_images)
+            rec_images = torch.abs(reconstruction_images)
+            accelerator.log(
+                {
+                    f"train/input_images": [
+                        wandb.Image(wandb_norm(img)) for img in input_images
+                    ],
+                    f"train/reconstruction_images": [
+                        wandb.Image(wandb_norm(img)) for img in rec_images
+                    ],
+                }
+            )
+
+        # Logging values
+>>>>>>> 48a7be7 (enable training of a complex vae)
         print(
             f"\r[Epoch <{epoch:03}/{options['max_epoch']}>: Step <{i:03}/{len(dataloader)}>] - "
             + f"Data(s): {data_time:.3f} ({metric_data.compute():.3f}) - "
             + f"Batch(s): {batch_time:.3f} ({metric_batch.compute():.3f}) - "
             + f"AE Loss: {aeloss.item():.3f} ({metric_aeloss.compute():.3f}) - "
             + f"AE Rec Loss: {log_dict_ae['train/rec_loss'].item():.3f} ({metric_ae_recloss.compute():.3f}) - "
+<<<<<<< HEAD
             + bc_print
+=======
+>>>>>>> 48a7be7 (enable training of a complex vae)
             + f"Disc Loss: {discloss.item():.3f} ({metric_discloss.compute():.3f}) - "
             + f"{(((time() - epoch_start) / (i + 1)) * (len(dataloader) - i)) / 60:.2f} m remaining\n"
         )
@@ -153,9 +212,12 @@ def training_epoch(
                 "step_data": data_time,
                 "step_batch": batch_time,
             }
+<<<<<<< HEAD
             
             if "train/bc_loss" in log_dict_ae:
                 log_data["mean_bc_loss"] = metric_bc_loss.compute()
+=======
+>>>>>>> 48a7be7 (enable training of a complex vae)
 
             for name, metric in rec_metrics:
                 log_data[name] = metric.compute()
@@ -165,7 +227,13 @@ def training_epoch(
 
         if global_step % options["ckpt_every_n_steps"] == 0:
             try:
+<<<<<<< HEAD
                 accelerator.save_state(os.path.join(options["ckpt_dir"], f"step_{global_step}.pt"))
+=======
+                accelerator.save_state(
+                    os.path.join(options["ckpt_dir"], f"step_{global_step}.pt")
+                )
+>>>>>>> 48a7be7 (enable training of a complex vae)
             except Exception as e:
                 print(e)
 
@@ -241,7 +309,13 @@ def validation_epoch(
             metric_aeloss.update(aeloss)
             metric_ae_recloss.update(log_dict_ae["valid/rec_loss"])
             metric_discloss.update(discloss)
+<<<<<<< HEAD
             images, reconstructions = accelerator.gather_for_metrics((images, reconstructions))
+=======
+            images, reconstructions = accelerator.gather_for_metrics(
+                (images, reconstructions)
+            )
+>>>>>>> 48a7be7 (enable training of a complex vae)
             for _, metric in rec_metrics:
                 metric.update(images, reconstructions)
 
@@ -258,6 +332,30 @@ def validation_epoch(
             if options["fast_dev_run"]:
                 break
 
+<<<<<<< HEAD
+=======
+            if options.get("is_logging", False) and i == 0:
+                input_images = (
+                    images[:4, 0].detach().cpu() + 1j * images[:4, 1].detach().cpu()
+                )
+                reconstruction_images = (
+                    reconstructions[:4, 0].detach().cpu()
+                    + 1j * reconstructions[:4, 1].detach().cpu()
+                )
+                input_images = torch.abs(input_images)
+                rec_images = torch.abs(reconstruction_images)
+                accelerator.log(
+                    {
+                        f"valid/input_images": [
+                            wandb.Image(wandb_norm(img)) for img in input_images
+                        ],
+                        f"valid/reconstruction_images": [
+                            wandb.Image(wandb_norm(img)) for img in rec_images
+                        ],
+                    }
+                )
+
+>>>>>>> 48a7be7 (enable training of a complex vae)
         if options["is_logging"]:
             log_data = {
                 f"valid{postfix}/epoch": epoch,
