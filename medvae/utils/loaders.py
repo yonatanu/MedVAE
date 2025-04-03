@@ -12,6 +12,10 @@ from monai.transforms import (
     ScaleIntensityRangePercentiles,
     CenterSpatialCrop,
     SpatialPad,
+    RandFlip,
+    RandLambda,
+    RandRotate,
+    Transpose,
 )
 import torch
 import torch.nn.functional as F
@@ -20,6 +24,7 @@ import torchvision
 from PIL import Image
 import polars as pl
 import numpy as np
+from typing import Sequence
 
 
 class MonaiNormalize(Transform):
@@ -59,6 +64,21 @@ Custom transform to normalize and pad 2D images
 @input: path to image (str)
 @Output: padding (np.array)
 """
+
+
+def augmenting_transforms(random_flip, rot_degree) -> Sequence[Transform]:
+    augment_list = []
+    if random_flip:
+        augment_list.extend(
+            [
+                RandFlip(prob=0.5, spatial_axis=0),
+                RandFlip(prob=0.5, spatial_axis=1),
+                RandLambda(Transpose((0, 2, 1)), prob=0.5),
+            ],
+        )
+    if rot_degree > 0:
+        augment_list.append(RandRotate(range_x=np.deg2rad(rot_degree)))
+    return augment_list
 
 
 def load_2d(
@@ -138,7 +158,12 @@ def load_2d_four_channel(
 
 
 def load_oasis(
-    path: str, dtype: torch.dtype = torch.float32, return_2_ch: bool = True, **kwargs
+    path: str,
+    dtype: torch.dtype = torch.float32,
+    return_2_ch: bool = True,
+    random_flip=False,
+    rot_degree=0,
+    **kwargs,
 ):
     specific_crop = Lambda(func=lambda x: x[..., 15:180, 30:220])
     crop_transform = CenterSpatialCrop(roi_size=(192, 272))
@@ -152,6 +177,7 @@ def load_oasis(
             spatial_size=(256, 256), mode="bilinear"
         ),  # NOTE: this distorts the image unless its already square
         ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+        *augmenting_transforms(random_flip, rot_degree),
         # MonaiNormalize(mean=[0.5], std=[0.5]),
     ]
     img_transforms = Compose(
@@ -173,13 +199,19 @@ def load_oasis(
 
 
 def load_bruno_dicoms(
-    path: str, dtype: torch.dtype = torch.float32, return_2_ch: bool = True, **kwargs
+    path: str,
+    dtype: torch.dtype = torch.float32,
+    return_2_ch: bool = True,
+    random_flip=False,
+    rot_degree=0,
+    **kwargs,
 ):
     transforms_list = [
         LoadImage(),
         EnsureChannelFirst(channel_dim="no_channel"),
         Resize(spatial_size=(256, 256), mode="bilinear"),
         ScaleIntensity(channel_wise=True, minv=0, maxv=1),
+        *augmenting_transforms(random_flip, rot_degree),
         # MonaiNormalize(mean=[0.5], std=[0.5]),
     ]
     img_transforms = Compose(
@@ -202,28 +234,60 @@ def load_bruno_dicoms(
 class LoadComplexImage(Transform):
     """
     Custom transform to load an image while preserving its complex data.
-    This example assumes the image is stored in a numpy file (.npy).
-    Adjust the loading logic if your file format differs.
+
+    Specify a % chance of returning just the magnitude too
     """
 
-    def __call__(self, path: str):
+    def __init__(
+        self,
+        complex_dropout_frac: float = 0.0,
+        complex_global_phase_modulation: bool = False,
+    ):
+        super().__init__()
+        self.complex_dropout_frac = complex_dropout_frac
+        self.complex_global_phase_modulation = complex_global_phase_modulation
+
+    def __call__(self, path: str) -> torch.Tensor:
         data = np.load(path)
         if not np.iscomplexobj(data):
             raise ValueError(f"Data in {path} is not complex.")
         data = data / np.max(np.abs(data))
-        data = np.concatenate((data.real[np.newaxis], data.imag[np.newaxis]), axis=0)
+
+        # Apply global phase modulation if desired
+        # This is a random phase shift applied to the whole image for data augmentation
+        if self.complex_global_phase_modulation:
+            phase = np.random.rand() * 2 * np.pi
+            data = data * np.exp(1j * phase)
+
+        is_complex = np.random.rand() > self.complex_dropout_frac
+        if is_complex:
+            data = np.concatenate(
+                (data.real[np.newaxis], data.imag[np.newaxis]), axis=0
+            )
+        else:
+            zeros = np.zeros_like(data.real)
+            data = np.concatenate((np.abs(data)[np.newaxis], zeros[np.newaxis]), axis=0)
+
         data = torch.from_numpy(data)
         return data
 
 
 def load_bruno(
-    path: str, dtype: torch.dtype = torch.float32, merge_channels: bool = True, **kwargs
+    path: str,
+    dtype: torch.dtype = torch.float32,
+    random_flip=False,
+    rot_degree=0,
+    rand_phase=False,
+    **kwargs,
 ):
     transforms_list = [
-        LoadComplexImage(),  # custom loader that preserves complex values
+        LoadComplexImage(
+            complex_dropout_frac=0, complex_global_phase_modulation=rand_phase
+        ),
         Resize(
             spatial_size=(256, 256), mode="bilinear"
         ),  # may distort image if not square
+        *augmenting_transforms(random_flip, rot_degree),
     ]
 
     img_transforms = Compose(

@@ -20,6 +20,8 @@ train:
             - _partial_: true
               _target_: medvae.utils.loaders.load_oasis
               return_2_ch: true
+              random_flip: true
+              rot_degree: 10
 
       # complex data
       - _target_: medvae.dataloaders.GenericDataset
@@ -35,6 +37,26 @@ train:
           transforms:
             - _partial_: true
               _target_: medvae.utils.loaders.load_bruno
+              random_flip: true
+              rot_degree: 10
+              rand_phase: true
+  
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/fastmri.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/fastmri/
+        dataset_id: 10
+        img_column: image_uuid
+        img_suffix: .npy
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_bruno
+              random_flip: true
+              rot_degree: 10
+              rand_phase: true
 
       - _target_: medvae.dataloaders.GenericDataset
         split_path: ${paths.data_dir}/bruno_dicoms.csv
@@ -50,6 +72,8 @@ train:
             - _partial_: true
               _target_: medvae.utils.loaders.load_bruno_dicoms
               return_2_ch: true
+              random_flip: true
+              rot_degree: 10
 
 valid:
   dataset:
@@ -77,6 +101,20 @@ valid:
         split_name: val
         data_dir: ${paths.data_dir}/bruno/
         dataset_id: 5
+        img_column: image_uuid
+        img_suffix: .npy
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_bruno
+
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/fastmri.csv
+        split_column: split
+        split_name: val
+        data_dir: ${paths.data_dir}/fastmri/
+        dataset_id: 11
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
@@ -126,6 +164,20 @@ test:
         split_name: test
         data_dir: ${paths.data_dir}/bruno/
         dataset_id: 8
+        img_column: image_uuid
+        img_suffix: .npy
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_bruno
+
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/fastmri.csv
+        split_column: split
+        split_name: test
+        data_dir: ${paths.data_dir}/fastmri/
+        dataset_id: 12
         img_column: image_uuid
         img_suffix: .npy
         img_transform:

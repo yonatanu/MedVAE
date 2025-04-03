@@ -7,11 +7,15 @@ import matplotlib.pyplot as plt
 from pathlib import Path
 
 
-dicom_dataset = Path("/local_mount/space/mayday/data/users/zachs/fast-mri-ldm/pre_processing/preprocess-bruno-2025-data")
-dicom_dst_dir = Path("/local_mount/space/mayday/data/datasets/ladyyy/datasets/med_vae_train/bruno_dicoms")
+dicom_dataset = Path(
+    "/local_mount/space/mayday/data/users/zachs/fast-mri-ldm/pre_processing/preprocess-bruno-2025-data"
+)
+dicom_dst_dir = Path(
+    "/local_mount/space/mayday/data/datasets/ladyyy/datasets/med_vae_train//bruno_dicoms_v2"
+)
 os.makedirs(dicom_dst_dir, exist_ok=True)
 
-df = pd.read_csv(dicom_dataset / "data" / "updated_dataset_w_dicoms.csv")
+df = pd.read_csv(dicom_dataset / "data" / "updated_dataset_w_dicoms_v2.csv")
 
 save_df = []
 global_cnt = 0
@@ -22,7 +26,7 @@ test_pct = 0.15
 
 # Create a list of probabilities
 probabilities = [train_pct, val_pct, test_pct]
-splits = ['train', 'val', 'test']
+splits = ["train", "val", "test"]
 
 for j in tqdm(range(len(df))):
     row = df.iloc[j]
@@ -30,7 +34,7 @@ for j in tqdm(range(len(df))):
     split = np.random.choice(splits, p=probabilities)
 
     # Process both "new" and "prior" scans.
-    for status in ['new', 'prior']:
+    for status in ["new", "prior"]:
         # Get the scan path for the current status.
         scan_path = row.get(f"{status}_scan_path", None)
         if pd.isnull(scan_path) or not os.path.exists(scan_path):
@@ -45,7 +49,9 @@ for j in tqdm(range(len(df))):
 
         # Compute energy for each slice along the first dimension.
         # Energy is defined as the sum of absolute pixel values.
-        energies = np.array([np.sum(np.abs(volume[i, ...]) ** 2) for i in range(volume.shape[0])])
+        energies = np.array(
+            [np.sum(np.abs(volume[i, ...]) ** 2) for i in range(volume.shape[0])]
+        )
         max_energy = energies.max()
         threshold = 0.3 * max_energy
 
@@ -61,7 +67,7 @@ for j in tqdm(range(len(df))):
             rand_id = random.randint(0, 1000000)
             filename = f"{row['exam_id']}_{row['scanner']}_{row['scan_type']}_{status}_{i}_{rand_id}.npy"
             filename = filename.replace(" ", "_").replace("/", "_")
-            file_id = filename.split('.')[0]
+            file_id = filename.split(".")[0]
             save_path = os.path.join(dicom_dst_dir, filename)
             try:
                 np.save(save_path, slice_img)
@@ -69,13 +75,15 @@ for j in tqdm(range(len(df))):
                 print(f"Error saving slice {i} for {scan_path}: {e}")
                 continue
 
-            save_df.append({
-                'row_nr': global_cnt,
-                'image_uuid': file_id,
-                'split': split,
-            })
+            save_df.append(
+                {
+                    "row_nr": global_cnt,
+                    "image_uuid": file_id,
+                    "split": split,
+                }
+            )
             global_cnt += 1
 
 save_df = pd.DataFrame(save_df)
 # Save the DataFrame as a CSV file
-save_df.to_csv(dicom_dst_dir.parent / 'dicom_ds.csv', index=False)
+save_df.to_csv(dicom_dst_dir.parent / "dicom_ds_v2.csv", index=False)
