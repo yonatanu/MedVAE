@@ -23,6 +23,23 @@ train:
               random_flip: true
               rot_degree: 10
 
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/bruno_dicoms.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/bruno_dicoms/
+        dataset_id: 3
+        img_column: image_uuid
+        img_suffix: .npy
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_bruno_dicoms
+              return_2_ch: true
+              random_flip: true
+              rot_degree: 10
+
       # complex data
       - _target_: medvae.dataloaders.GenericDataset
         split_path: ${paths.data_dir}/bruno.csv
@@ -58,22 +75,41 @@ train:
               rot_degree: 10
               rand_phase: true
 
+      # duplicate complex data to increase training set size
       - _target_: medvae.dataloaders.GenericDataset
-        split_path: ${paths.data_dir}/bruno_dicoms.csv
+        split_path: ${paths.data_dir}/bruno.csv
         split_column: split
         split_name: train
-        data_dir: ${paths.data_dir}/bruno_dicoms/
-        dataset_id: 3
+        data_dir: ${paths.data_dir}/bruno/
+        dataset_id: 22
         img_column: image_uuid
         img_suffix: .npy
         img_transform:
           _target_: torchvision.transforms.Compose
           transforms:
             - _partial_: true
-              _target_: medvae.utils.loaders.load_bruno_dicoms
-              return_2_ch: true
+              _target_: medvae.utils.loaders.load_bruno
               random_flip: true
               rot_degree: 10
+              rand_phase: true
+  
+      - _target_: medvae.dataloaders.GenericDataset
+        split_path: ${paths.data_dir}/fastmri.csv
+        split_column: split
+        split_name: train
+        data_dir: ${paths.data_dir}/fastmri/
+        dataset_id: 101
+        img_column: image_uuid
+        img_suffix: .npy
+        img_transform:
+          _target_: torchvision.transforms.Compose
+          transforms:
+            - _partial_: true
+              _target_: medvae.utils.loaders.load_bruno
+              random_flip: true
+              rot_degree: 10
+              rand_phase: true
+
 
 valid:
   dataset:

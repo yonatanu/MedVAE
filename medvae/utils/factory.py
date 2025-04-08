@@ -40,6 +40,10 @@ FILE_DICT_ASSOCIATIONS = {
         "config": "model_weights/medvae_4x4.yaml",
         "ckpt": "model_weights/vae_4x_4c_2D.ckpt",
     },
+    "medvae_8_4_2d_c": {
+        "config": "model_weights/medvae_8x4.yaml",
+        "ckpt": "model_weights/vae_8x_4c_2D.ckpt",
+    },
 }
 
 """ 
@@ -70,16 +74,21 @@ def build_model(
         or model_name == "medvae_8_1_2d"
         or model_name == "medvae_4_4_2d"
         or model_name == "medvae_4_4_2d_c"
+        or model_name == "medvae_8_4_2d_c"
     ):
         conf = OmegaConf.load(config_fpath)
-        if model_name == "medvae_4_4_2d_c":
+        if model_name == "medvae_4_4_2d_c" or model_name == "medvae_8_4_2d_c":
+            conf.embed_dim = 4
+            conf.ddconfig.z_channels = 4
             conf["ddconfig"]["in_channels"] = 2
             conf["ddconfig"]["out_ch"] = 2
         model = AutoencoderKL_2D(
             ddconfig=conf.ddconfig,
             embed_dim=conf.embed_dim,
             ckpt_path=ckpt_fpath if existing_weight is None else existing_weight,
-            dup_loaded_weights=(model_name == "medvae_4_4_2d_c"),
+            dup_loaded_weights=(
+                model_name == "medvae_4_4_2d_c" or model_name == "medvae_8_4_2d_c"
+            ),
         )
     elif model_name == "medvae_4_3_2d" or model_name == "medvae_8_4_2d":
         conf = OmegaConf.load(config_fpath)
@@ -161,6 +170,11 @@ def create_model_and_transform(
     # Download the model_weights
     config_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]["config"])
     ckpt_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]["ckpt"])
+    if model_name == "medvae_8_4_2d_c":
+        config_fpath = "/data/yurman/repos/fast-mri-ldm/submodules/medvae/configs/ours-8x1-new.yaml"
+        ckpt_fpath = (
+            "/data/yurman/repos/fast-mri-ldm/submodules/medvae/configs/ours-8x4.ckpt"
+        )
 
     # Build the model
     model = build_model(model_name, config_fpath, ckpt_fpath)
@@ -189,6 +203,11 @@ def create_model(
     # Download the model_weights
     config_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]["config"])
     ckpt_fpath = download_model_weights(FILE_DICT_ASSOCIATIONS[model_name]["ckpt"])
+    if model_name == "medvae_8_4_2d_c":
+        config_fpath = "/data/yurman/repos/fast-mri-ldm/submodules/medvae/configs/ours-8x1-new.yaml"
+        ckpt_fpath = (
+            "/data/yurman/repos/fast-mri-ldm/submodules/medvae/configs/ours-8x4.ckpt"
+        )
 
     # Build the model
     model = build_model(

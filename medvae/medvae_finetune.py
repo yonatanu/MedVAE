@@ -40,6 +40,7 @@ def parse_arguments(cfg: DictConfig):
         "medvae_4_1_3d",
         "medvae_8_1_3d",
         "medvae_4_4_2d_c",
+        "medvae_8_4_2d_c",
     ]
     assert (
         cfg.model_name in valid_model_names
