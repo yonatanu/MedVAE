@@ -4,7 +4,7 @@
 
 This repository contains the official PyTorch implementation for [MedVAE: Efficient Automated Interpretation of Medical Images with Large-Scale Generalizable Autoencoders](https://arxiv.org/abs/2502.14753).
 
-<!-- ![Overview](documentation/assets/overview.png) -->
+![Overview](documentation/assets/overview.png)
 
 ## 🫁 What is MedVAE?
 
