@@ -22,7 +22,7 @@ For an editable installation, use the following commands to clone and install th
 
 ```python
 git clone https://github.com/StanfordMIMI/MedVAE.git
-cd medvae
+cd MedVAE
 pip install -e .[dev]
 pre-commit install
 pre-commit
