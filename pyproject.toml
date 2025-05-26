@@ -1,6 +1,6 @@
 [project]
 name = "medvae"
-version = "0.1.0"
+version = "0.1.1"
 requires-python = ">=3.9"
 description = "MedVAE is a family of six medical image autoencoders that can encode high-dimensional medical images into latent representations."
 readme = "README.md"
@@ -36,7 +36,8 @@ keywords = [
 dependencies = [
     "torch>=2.4.1", # tested using 2.6.0
     "accelerate>=0.34.2", # tested using 0.34.2
-    "wandb==0.14.0",
+    "wandb==0.14.0; python_version < '3.12'",  # tested using 0.14.0 for older python
+    "wandb>=0.16.0; python_version >= '3.12'", # use newer wandb for Python 3.12
     "tqdm", # tested using 4.67.1
     "dicom2nifti", # tested using 2.5.1
     "scipy", # tested using 1.13.1
