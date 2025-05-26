@@ -102,6 +102,8 @@ To log training runs with wandb, ensure your wandb API key is set up. Enable log
 CUDA_VISIBLE_DEVICES=0 medvae_finetune experiment=medvae_4x_1c_2d_finetuning logger=wandb
 ```
 
+Note: We recommend using `wandb` version `0.14.0`. We have noticed logging errors with other versions with our setup.
+
 ## Inference Post-Finetuning
 
 Use our built-in inference engine to perform inference on your finetuned models:
