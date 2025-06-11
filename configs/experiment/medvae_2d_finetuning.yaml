@@ -9,7 +9,7 @@ defaults:
 task_name: bruno_finetuning
 input: /data/yurman/repos/fast-mri-ldm/submodules/medvae/medvae/data/oasis
 output: /local_mount/space/mayday/data/datasets/ldm/models
-model_name: medvae_8_4_2d_c
+model_name: medvae_4_4_2d_c
 dataset_name: oasis
 stage2: false
 device: cuda
